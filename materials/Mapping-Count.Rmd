@@ -1,0 +1,1026 @@
+---
+title: "2025 554 Disease Mapping R Notes"
+author: |
+  | Jon Wakefield
+  | Departments of Biostatistics and Statistics
+  | University of Washington
+date: '`r Sys.Date()`'
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(message=FALSE, collapse=TRUE,fig.align='center',tidy=TRUE, tidy.opts=list(blank=TRUE, width.cutoff=70,strip.white=TRUE), warning=FALSE,cache=FALSE)
+```
+
+## Scottish lip cancer data
+
+In these notes we will analyze the famous Scottish lip cancer data discussed in lectures. We will fit both non-spatial and spatial random effects smoothing models.
+
+We will also discuss some other topics including how to deal with:
+
+* missing observations, and
+
+* censored observations
+
+We first load some libraries. Note that INLA has a non-standard installation, see [INLA DOWNLOAD](https://www.r-inla.org/download-install) 
+
+```{r, eval=T}
+library(SpatialEpi)
+library(RColorBrewer)
+library(ggplot2)
+library(ggridges)
+library(INLA)
+library(sf)
+library(spdep)
+```
+
+We will fit a number of models to the Scottish lip cancer data, but first access the data.
+
+In area $i$, let $Y_i$ and $E_i$ represent the disease count and expected count.
+
+An initial summary is the Standardized Morbidity Ratio (SMR), which for area $i$ is
+$$\mbox{SMR}_i = \frac{Y_i}{E_i},$$
+for $i=1,\dots,56$.
+
+We also have an area-based covariate $X_i$ (proportion in agriculture, fishing and farming) in each of the $i=1,\dots,56$ areas. 
+
+```{r, eval=T}
+data(scotland)
+names(scotland)
+names(scotland$data)
+head(scotland$data)
+```
+
+The following is taken from Section 6.2 of Moraga (2020).
+
+We form a data frame ``scotdata`` containing key variables, and add the SMRs.
+
+```{r}
+scotdata <- scotland$data[,c("county.names", "cases", "expected", "AFF")]
+scotdata$SMR <- scotdata$cases/scotdata$expected
+smap <- (scotland$spatial.polygon)
+```
+
+We can use ``sapply()`` to see that the polygone ``ID`` slot corresponds to the county names, meaning that polygons and attribute records are in the same order:
+
+```{r}
+all.equal(
+  sapply(slot(smap, "polygons"), function(x){slot(x, "ID")}),
+  as.character(scotdata$county.names)
+)
+```
+
+We can convert `smap` to an `sfc` object, and add it as geometry column to the data.frame, then convert into an `sf` object:
+```{r}
+scotdata$geometry <- st_as_sfc(smap)
+smap <- st_as_sf(scotdata)
+```
+
+We can look at the first part of the spatial data frame:
+
+```{r}
+head(smap)
+```
+
+We can plot the areas within Scotland as follows:
+
+```{r}
+cent <- getSpPPolygonsLabptSlots(scotland$spatial.polygon)
+cols <- rainbow(min(10,
+                    dim(smap)[1]))
+admin1.mat <- poly2nb(SpatialPolygons(scotland$spatial.polygon@polygons))
+admin1.mat <- nb2mat(admin1.mat, zero.policy = TRUE)
+colnames(admin1.mat) <- rownames(admin1.mat) <- paste0("admin1_", 1:dim(admin1.mat)[1])
+
+plot(smap$geometry, col = cols, border = F, axes = F,)
+  for(i in 1:dim(cent)[1]){
+    neighbs <- which(admin1.mat[i,] != 0)
+    if(length(neighbs) != 0){
+      for(j in 1:length(neighbs)){
+        ends <- cent[neighbs,]
+        segments(x0 = cent[i, 1],
+                 y0 = cent[i, 2],
+                 x1 = cent[neighbs[j], 1],
+                 y1 = cent[neighbs[j], 2],
+                 col = 'black')
+      }
+    }
+  }
+```
+
+Now for the map.
+
+```{r, echo=TRUE, fig.height=4.5,fig.width=4, fig.cap="SMRs for Scottish lip cancer data",eval=T}
+pal = function(n) brewer.pal(n, "Purples")
+plot(smap["SMR"], pal = pal, nbreaks = 8)
+```
+
+Observations:
+
+* The SMRs have a large spread, but how much does this reflect sampling variation, rather than true variation? 
+
+* There is also increasing trend in the south-north direction. 
+
+The variance of the
+estimate in area $i$ is $${\mbox{var}}(\mbox{SMR}_i) = \frac{\mbox{SMR}_i}{E_i},$$ which
+will be large if $E_i$ is small. 
+
+```{r}
+summary(smap$expected)
+```
+
+For the Scottish data the
+expected numbers are highly variable, with range 1.1--88.7.
+
+This
+variability suggests that there is a good chance that the extreme SMRs
+are based on small expected numbers (many of the large,
+sparsely-populated rural areas in the north have high SMRs).
+
+
+We next map the expected numbers for Scottish lip cancer data
+
+
+```{r, echo=TRUE, fig.height=4.5,fig.width=4, tidy.opts=list(width.cutoff=90),eval=T}
+pal = function(n) brewer.pal(n, "Greens")
+plot(smap["expected"], pal = pal, nbreaks = 8, breaks = "equal")
+```
+
+The highest SMRs tend to have the largest standard errors.
+
+```{r, echo=TRUE, fig.height=4.2,fig.width=5, tidy.opts=list(width.cutoff=60),eval=T}
+ggplot(data.frame(se=sqrt(scotdata$SMR/scotdata$expected),SMR=scotdata$SMR),aes(x=se,y=SMR)) + geom_point() + labs(y="SMR",x="Standard Error")
+```
+
+## SMR interval estimates
+
+Let $\theta_i = \mbox{SMR}_i$.
+
+We obtain an interval estimate for $\alpha_i = \log \theta_i$ (since the normality of the estimator is likely to be better on this scale) and then transform.
+
+Via the delta method
+$$\widehat{\mbox{var}}(\widehat \alpha_i) = \widehat{\mbox{var}}(\widehat \theta_i) |J|^2$$
+where $J=\frac{d\alpha_i}{d\theta_i}=\exp(-\alpha_i)$ and $\widehat{\mbox{var}}(\widehat \theta_i) = \widehat{\theta}_i/E_i$.
+
+We obtain:
+$$\widehat{\mbox{var}}(\widehat \alpha_i) = [E_i\exp(\widehat{\alpha}_i)]^{-1},$$
+to give a 95\% confidence interval for $\theta_i$ of
+$$\exp\left( \widehat{\alpha}_i \pm 1.96 \times \sqrt{ \widehat{\mbox{var}}(\widehat \alpha_i) }\right).$$
+
+## SMR estimates when $Y_i=0$
+
+When $Y_i=0$, we obtain an SMR of 0, and (more worryingly) a standard error of zero.
+
+In this case, we carry out an adjustment and set $Y_i^\star=Y_i+0.5$ and $E_i^\star=E_i+0.5$ to give the estimator
+$$\theta_i^\star=\mbox{SMR}_i^\star = Y_i^\star/E_i^\star,$$
+with
+$\hat{\mbox{var}}(\widehat \theta^\star_i) = \widehat{\theta}^\star_i/E^\star_i$. 
+
+Also let $\alpha_i^\star = \log \theta_i^\star$.
+
+We obtain:
+$$\widehat{\mbox{var}}(\widehat \alpha^\star_i) = (E^\star_i\exp(\widehat\alpha^\star_i))^{-1},$$
+to give a 95\% confidence interval of
+$$\exp\left( \widehat{\alpha}^\star_i \pm 1.96 \times \sqrt{ \widehat{\mbox{var}}(\widehat \alpha^\star_i) }\right).$$
+
+SMR interval estimates
+
+The addition of 0.5 is somewhat ad hoc but corresponds to a Ga(0.5,0.5) prior on the relative risk. This prior has 0.025, 0.5, 0.975 quantiles of 0.00098, 0.45, 5.0.
+
+The addition of a non-integer also highlights that some adjustment has been made!
+
+This prior is contributing information equivalent to observing an expected number of 0.5 and `half a case'.
+
+SMR estimates with adjustment. We create estimates adjusted for zeroe: if the number of cases is equal to zero both the number of cases and the expecteds are increased by 0.5.
+
+```{r}
+Ystar <- ifelse(scotdata$cases==0,0.5,scotdata$cases)
+Estar <- ifelse(scotdata$cases==0,scotdata$expected+0.5,scotdata$expected)
+SMRstar <- Ystar/Estar
+alphastar <- log(SMRstar)
+varalphastar <- 1/(SMRstar*Estar)
+SMRlower <- exp(alphastar-1.96*sqrt(varalphastar))
+SMRupper <- exp(alphastar+1.96*sqrt(varalphastar))
+SMRwidth <- SMRupper - SMRlower
+scotdata$SMRstar <- SMRstar
+scotdata$Estar <- Estar
+scotdata$SMRlower <- SMRlower
+scotdata$SMRupper <- SMRupper
+scotdata$SMRwidth <- SMRwidth
+geometries = st_geometry(smap)
+smap = scotdata
+smap$geometries = geometries
+smap = st_as_sf(smap)
+```
+
+Point estimates with adjustment
+
+```{r}
+pal = function(n) brewer.pal(n,"Greys")
+plot(smap["SMRstar"],pal = pal, nbreaks = 8, breaks = "equal")
+```
+
+Lower and upper confidence intervals with adjustment.
+
+```{r}
+pal = function(n) brewer.pal(n, "YlOrBr")
+plot(smap["SMRlower"], pal = pal, nbreaks = 8, breaks = "equal")
+pal = function(n) brewer.pal(n, "GnBu")
+plot(smap["SMRupper"], pal=pal, nbreaks = 8, breaks = "equal")
+```
+
+The width decreases with increasing expected numbers!
+
+
+```{r}
+plot(scotdata$SMRwidth~log(scotdata$Estar),col="blue",cex=.5)
+```
+
+## Poisson-Lognormal non-spatial smoothing model
+
+We now consider an alternative lognormal model for the relative risks, but still independent.
+
+A Poisson-lognormal non-spatial random effect model is given by:
+\begin{eqnarray*}
+Y_i |\beta_0,e_i  &\sim_{ind}  &   \mbox{Poisson}(E_i \mbox{e}^{\beta_0} \mbox{e}^{e_i}),\\
+e_i | \sigma_e^{2} & \sim_{iid}& \mbox{N}(0,\sigma_e^{2}) 
+\end{eqnarray*}
+where $e_i$ are area-specific random effects that capture the
+residual or unexplained (log) relative risk of disease in area $i$,
+$i=1,...,n=56$. 
+
+Note that in INLA the uncertainty in the distribution of the random effect is reported in terms of the precision (the reciprocal of the variance, $\tau_e$).
+
+This model gives rise to the posterior distribution;
+$$p(\beta_0,\tau_e,e_1,\dots,e_n | y) = \frac{\prod_{i=1}^n \Pr(Y_i | \beta_0,e_i) p(e_i | \tau_e)  p(\beta_0)p(\tau_e)}{\Pr(y)}.$$
+The full posterior is an $(n+2)$-dimensional distribution and INLA by default produces summaries of the univariate posterior distributions for $\beta_0$ and $\tau_e$.
+
+The posteriors on the random effects $p(e_i | y)$ can be extracted, as we will show in subsequent slides.
+
+### INLA for the Poisson-Lognormal model
+
+We fit the Poisson-Lognormal model to the Scottish lip cancer data. 
+
+We first show a fit with no prior specifications given.
+
+```{r,eval=T}
+# Fit Poisson-lognormal model in INLA:
+scotland.fit0 <- inla(Counts ~ 1 + f(Region, model="iid"),
+  data=Scotland, family="poisson", E=E)
+scotland.fit0$summary.fixed[,1:5]
+scotland.fit0$summary.hyper[,1:5]
+```
+
+A sanity check:
+```{r}
+beta0est <- scotland.fit0$summary.fixed[,4]
+sigma2est <- 1/scotland.fit0$summary.hyper[,4]
+exp(beta0est+0.5*sigma2est)
+```
+
+Now we place a prior on the precision and ask for fitted values to be computed.
+
+Note:
+
+* The specification of the penalized complexity prior (Simpson et al 2017) for the precision $\tau_e=\sigma^{-2}_e$. Here we specify that there is a 5\% chance that the standard deviation $\sigma_e$ is greater than 1. The end of these notes contains a brief description of penalized complexity (PC) priors.
+
+
+```{r}
+# Fit Poisson-lognormal model in INLA with prior specified
+pcprec <- list(theta=list(prior='pc.prec',param=c(1,.05)))
+scotland.fit1 <- inla(Counts ~ 1 + f(Region, model="iid", hyper=pcprec),
+  data=Scotland, family="poisson", E=E,
+  # Next two lines give us calculated fitted values
+  control.predictor = list(compute = TRUE),
+  control.compute = list(return.marginals.predictor = TRUE)) 
+
+scotland.fit1$summary.fixed[,1:5]
+scotland.fit1$summary.hyper[,1:5]
+```
+
+Very little sensitivity to the prior on the precision.
+
+Let's look at the potential output:
+
+```{r,tidy.opts=list(width.cutoff=40),eval=T}
+names(scotland.fit1)
+```
+
+We now extract the posterior medians of the log relative risks.
+
+We now map the posterior medians of the relative risks.
+
+```{r,  fig.height=4.5}
+smap$fit1fitted <- scotland.fit1$summary.fitted.values$`0.5quant`
+pal = function(n) brewer.pal(n,"Purples")
+plot(smap["fit1fitted"], pal = pal, nbreaks = 8, breaks = "equal")
+```
+
+Now compare the medians with the SMRs - we see some shinrkage, particularly for the low and high SMRs that have relatively large standard errors.
+
+The standard erroors of zero are artfifacts of the SMRs being estimated as zero when $Y_i=0$.
+
+```{r,  fig.height=4.5}
+se <- sqrt(scotdata$SMR/scotdata$expected)
+ggplot(data.frame(pmedian=scotland.fit1$summary.fitted.values$`0.5quant`,SMR=scotdata$SMR),
+       aes(y=pmedian,x=SMR,size = se)) + geom_point() + labs(y="Posterior Median",x="SMR") + geom_abline(intercept=0,slope=1,color="red") + xlim(0,7) + ylim(0,7)
+
+```
+
+```{r,tidy.opts=list(width.cutoff=40),eval=T}
+summary(scotland.fit1)
+expbeta0med <- scotland.fit1$summary.fixed[4] # intercept
+sdmed <- 1/sqrt(scotland.fit1$summary.hyperpar[4]) # sd
+```
+
+
+We examine the posterior marginal distribution for the intercept $\beta_0$.
+
+
+```{r, eval=TRUE, fig.height=3,fig.width=4,tidy.opts=list(width.cutoff=50)}
+plot(scotland.fit1$marginals.fixed$`(Intercept)`[,2]~
+scotland.fit1$marginals.fixed$`(Intercept)`[,1],type="l",
+xlab="Intercept",ylab="Posterior density")
+```
+
+## Ridgeplots: posterior marginals for regions
+
+A function to extract a specified marginal for all regions from an INLA model
+
+
+```{r, echo=TRUE,eval=TRUE}
+# function to extract the marginal densities and make a data frame to plot
+extract_marginals_to_plot <- function(marg) {
+  posterior_densities <- data.frame()
+  for (i in 1:length(marg)) {
+    tmp <- data.frame(marg[[i]])
+    tmp$Region <- i
+    posterior_densities <- rbind(posterior_densities,tmp)
+  }
+  return(posterior_densities)
+}
+```
+
+
+We display ridgeplots for marginal posterior RRs in regions 1--10:
+
+
+```{r, echo=TRUE,fig.height=4.3,fig.width=5,eval=TRUE}
+marginal_of_interest <- scotland.fit1$marginals.fitted.values
+post_dens <- extract_marginals_to_plot(marginal_of_interest)
+# we use the ggridges package to plot the marginals for first 28 Regions
+ggplot(data = post_dens[post_dens$Region <= 10,], 
+       aes(x = x, y = Region, height = y, group = Region, fill = ..x..)) +
+  geom_density_ridges_gradient(stat = "identity", alpha = 0.5) + 
+  scale_fill_viridis_c(option = "C") + xlab("Posterior marginal density") + 
+  xlim(0,7) +
+  theme(legend.position = 'none')
+```
+
+Next, ridgeplots for marginal posterior RRs in regions 47--56
+
+
+```{r, echo=TRUE,fig.height=4.3,fig.width=5,eval=TRUE}
+# we use the ggridges package to plot the marginals for last 10 Regions
+ggplot(data = post_dens[post_dens$Region > 46,], 
+       aes(x = x, y = Region, height = y, group = Region, fill = ..x..)) +
+  geom_density_ridges_gradient(stat = "identity", alpha = 0.5) + 
+  scale_fill_viridis_c(option = "C") + xlab("Posterior marginal density") + 
+  xlim(0,7) +
+  theme(legend.position = 'none')
+```
+
+## An excess-Poisson model with covariate
+
+We now add AFF, as a sanity check we first plot the SMR versus AFF.
+
+```{r,eval=TRUE,fig.height=3,fig.width=4}
+ggplot(Scotland,aes(x=X,y=Counts/E)) + geom_point() + labs(y="SMR")
+```
+
+We fit a quasi-likelihood model with 
+\begin{eqnarray*}
+E[Y_i ] &=& E_i \exp(\beta_0+\beta_1 x_i)\\
+\mbox{var}(Y_i)&=& \kappa \times E[Y_i]
+\end{eqnarray*}
+This model allows for excess-Poisson variation (overdispersion) via $\kappa$, but does not allow for spatial dependence.
+
+
+```{r,eval=TRUE,fig.height=3.5,fig.width=4.5}
+modQL <- glm(Scotland$Counts~Scotland$X,offset=log(Scotland$E),family="quasipoisson")
+coef(modQL)
+sqrt(diag(vcov(modQL)))
+summary(modQL)
+```
+
+The estimated RR is exp(0.074) = 1.08, so that an area whose AFF is 1 unit higher has an 8\% higher relative risk -- not an individual-level association (beware the ecological fallacy!).
+
+The overdispersion is estimated as $\widehat \kappa = 4.9$, which is considerable. Large excess-Poisson variation implies imprtant missing covariates/confounders, and if these have spatial structure, then this will lead to strong spatial dependence (though we emphasize that the quasi-Poisson model does not account for this).
+
+
+## Poisson-Lognormal non-spatial model with covariates
+
+We now fit the three-stage model:
+
+*Stage 1:* The Likelihood $Y_i | \theta_i \sim \mbox{Poisson}(E_i \theta_i)$, $i=1,\dots,n$ with 
+$$\log \theta_i = \beta_0 + x_i \beta_1 + e_i$$
+where $x_i$ is the AFF in area $i$.
+
+*Stage 2:* The random effects (prior distribution) is $e_i |\sigma_e^2 \sim_{iid} N(0,\sigma_e^2)$.
+
+*Stage 3:* The hyperprior on the hyperparameters $\beta_0,\beta_1,\sigma_e^2$:
+$$p(\beta_0,\beta_1,\sigma_e^2)=p(\beta_0)p(\beta_1)p(\sigma_e^2)$$
+so that here we have assumed independent priors.
+
+
+
+
+
+```{r,eval=T}
+# No spatial effects with covariate
+scotland.fit1X <- inla(Counts~1+X+f(Region, model="iid", 
+    hyper=pcprec),data=Scotland, family="poisson",E=E)
+scotland.fit1X$summary.fixed[1:5]
+scotland.fit1X$summary.hyperpar[1:5]
+```
+
+## Poisson-Lognormal non-spatial model with covariates: inference
+
+If we are interested in the association with the AFF variable we can examine the posterior summaries, on the original (to give a log RR) or exponentiated (to give a RR) scale.
+
+From these summaries we might extract the posterior median as a point estimate, or take the 2.5\% and 97.5\% points as a 95\% credible interval.
+
+```{r,eval=T}
+scotland.fit1X$summary.fixed[2,1:5]
+exp(scotland.fit1X$summary.fixed[2,3:5])
+```
+
+Note that we only exponentiate the quantiles of the posterior -- the mean and variance cannot be legally exponentiated to give something useful.
+
+Let's look at the posterior marginal for the log relative risk $\beta_1$.
+
+```{r}
+marginal <- inla.smarginal(scotland.fit1X$marginals.fixed$X)
+marginal <- data.frame(marginal)
+ggplot(marginal, aes(x = x, y = y)) + geom_line() +
+  labs(x = expression(beta[1]), y = "Density") +
+  geom_vline(xintercept = 0, col = "black") + theme_bw()
+```
+
+## Parameter interpretation
+
+```{r,eval=T}
+scotland.fit1X$summary.fixed[1:5]
+```
+The posterior mean for the intercept is $E[\beta_0 | y ] =-0.49$.
+
+The posterior median for the relative risk associated with a 1 unit increase in $X$ is $\mbox{median}(\exp(\beta_1) |y)= \exp(0.068)=1.07$. This latter calculation exploits the fact that we can transform quantiles\footnote{unlike means since, for example,
+$E[\exp(\beta_1)|y] \neq \exp(E[\beta_1|y])$.}
+
+Similarly a 95\% credible interval for the relative risk $\exp(\beta_1)$ is $$[~\exp(0.040),\exp(0.096)~]=[~1.04,1.10~].$$
+Examination of such intervals is a common way of determining whether the association is ``significant" -- here we have strong evidence that the relative risk associated with AFF is significant.
+
+
+
+```{r,eval=T}
+scotland.fit1X$summary.fixed[1:5]
+scotland.fit1X$summary.hyperpar[1:5]
+```
+
+The posterior median of $\sigma_e$ is ``r 1/sqrt(scotland.fit1X$summary.hyperpar[4])`` and a 95\% interval is 
+
+[``r c(1/sqrt(scotland.fit1X$summary.hyperpar[5]), 1/sqrt(scotland.fit1X$summary.hyperpar[3]))``]
+
+A more interpretable quantity is an  interval on the residual relative risk (RRR). The latter follow a lognormal distribution $\mbox{LogNormal}(0,\sigma_e^2)$ so a 95\% interval is $\exp(\pm 1.96 \times \sigma_e)$.
+
+A posterior median of a 95\% RRR interval is
+\begin{eqnarray*}
+[\exp(-1.96 \times \mbox{median}(\sigma_e) ), \exp(1.96 \times \mbox{median}(\sigma_e )]\\
+=[\exp(-1.96 \times 0.595),\exp(1.96 \times 0.595)]=[0.31,3.2]
+\end{eqnarray*}
+which is quite wide.
+
+A more in depth analysis would examine the prior sensitivity to the prior on $\tau_e$. 
+
+Variances are in general more difficult to estimate than regression coefficients so there is often sensitivity (unless the number of areas is very large).
+
+## Poisson-Lognormal spatial model with a covariate
+
+We now add spatial (ICAR) random effects to the model. We parameterize in terms of total variance and proportion that is spatial. 
+
+The model is
+*Stage 1:* The Likelihood $Y_i | \theta_i \sim \mbox{Poisson}(E_i \theta_i)$, $i=1,\dots,n$ with 
+$$\log \theta_i = \beta_0 + x_i \beta_1 + b_i$$
+where $x_i$ is the AFF in area $i$.
+
+*Stage 2:* The random effects (prior distribution) is $e_i |\sigma_e^2 \sim_{iid} N(0,\sigma_e^2)$ and the $S_i$ are ICAR. The parameterization is in terms of the total variance $\sigma_b^2$ and the proprtion spatial $\phi$.
+
+*Stage 3:* The hyperprior on the hyperparameters $\beta_0,\beta_1,\sigma_b^2,\phi$:
+$$p(\beta_0,\beta_1,\sigma_b^2,\phi)=p(\beta_0)p(\beta_1)p(\sigma_b^2)p(\phi)$$
+so that here we have assumed independent priors.
+
+We need a graph file containing the neighbors.
+
+```{r,eval=T}
+# Spatial effects with covariate
+download.file("http://faculty.washington.edu/jonno/SISMIDmaterial/scotland.graph",destfile = "scotland.graph")
+```
+
+Default specification:
+```{r}
+formula <- Counts ~ 1 + X + 
+f(Region, model="bym2",graph="scotland.graph")
+scotland.fit2default <- inla(formula, data=Scotland,family="poisson",E=E)
+scotland.fit2default$summary.fixed[,1:5]
+scotland.fit2default$summary.hyper[,1:5]
+```
+
+We now place a penalized complexity prior on these two parameters and dot a few more i's.
+
+```{r}
+formula <- Counts ~ 1 + X + 
+f(Region, model="bym2",graph="scotland.graph",
+  scale.model=T,
+  constr=T,
+  rankdef = 1,
+  hyper=list(
+    phi=list(
+      prior="pc",
+      param=c(0.5,0.5),
+      initial=1),
+  prec=list(
+    prior="pc.prec",
+    param=c(0.5/0.31,0.01),
+    initial=5)))
+scotland.fit2 <- inla(formula, data=Scotland, 
+family="poisson",E=E,
+control.predictor=list(compute=TRUE),
+control.compute=list(return.marginals.predictor=TRUE, config = TRUE))
+
+scotland.fit2$summary.fixed[,1:5]
+scotland.fit2$summary.hyper[,1:5]
+```
+
+Slight differences on the hyperparameters (total precision and proportion spatial) but nothing substantive.
+
+For the user-specified priors: The posterior median of the total standard deviation (on the log relative risk scale) is the posterior median of $1/\sqrt{\tau_b}$ (where $\tau_b$ is the precision), which is ``r 1/sqrt(scotland.fit2$summary.hyper[1,4])``
+
+The posterior median for the proportion of the residual variation that is spatial $\phi$ is ``r scotland.fit2$summary.hyper[2,4]``.
+
+
+
+```{r,  fig.height=4.5,fig.width=4.5,eval=T}
+smap$fit2fitted <- scotland.fit2$summary.fitted.values$`0.5quant`
+plot(smap["fit2fitted"], pal = pal, nbreaks=8, breaks = "equal")
+```
+
+```{r}
+leglabs <- function(vec, under = "under", over = "over", between = "-") {
+  x <- vec
+  lx <- length(x)
+  if (lx < 3) {
+    stop("vector too short")
+  }
+  res <- character(lx - 1)
+  res[1] <- paste(under, x[2])
+  for (i in 2:(lx - 2)) res[i] <- paste(x[i], between, x[i + 1])
+  res[lx - 1] <- paste(over, x[lx - 1])
+  res
+}
+
+plotvar <- smap$SMR # variable we want to map: SMR
+nclr <- 8
+plotclr <- brewer.pal(nclr, "Reds")
+brks <- round(quantile(plotvar, probs = seq(0, 1, 1/(nclr))), digits = 1)
+colornum <- findInterval(plotvar, brks, all.inside = T)
+colcode <- plotclr[colornum]
+
+ggplot(smap) +
+  geom_sf(aes(fill = colcode)) +
+  theme(
+    legend.title = element_blank(),
+    panel.grid = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text = element_blank()
+  ) +
+  theme(legend.position = "right") +
+  scale_fill_manual(values = rev(plotclr), 
+                    labels = rev(leglabs(round(brks, digits = 1)))) +
+  coord_sf()
+```
+
+
+
+## Poisson-Lognormal spatial model with covariates
+
+Now we provide maps of the non-spatial and spatial random effects.
+
+Estimates of residual relative risk (posterior medians), of the non-spatial $\mbox{e}^{e_i
+}$ and the spatial contributions $\mbox{e}^{S_i
+}$. 
+
+The BYM2 formulation for the random effect is $b_i=S_i+e_i$ where $S_i$ is spatial and $e_i$ is IID. INLA stores $b_i$ (the first 56 rows) and $S_i$ (the next 56 rows) and so we find the non-spatial via  $e_i = b_i-S_i$.
+
+Note the differences in the scales: the spatial random effects dominate here.
+
+
+```{r,eval=T}
+samp <- inla.posterior.sample(n = 1000, scotland.fit2)
+samp_mat <- matrix(0, nrow = 1000, ncol = 2)
+for (i in 1:1000) {
+  samp_mat[i,] <- samp[[i]]$hyperpar[1:2]
+}
+scale_region <- mean(sqrt(samp_mat[,2])/sqrt(samp_mat[,1]))
+```
+
+## Poisson-Lognormal spatial model with covariates: non-spatial random effects
+
+```{r,echo=TRUE,eval=T}
+# obtain RE estimates
+N <- 56
+struct <- scotland.fit2$summary.random[[1]]$mean[(N+1):(N*2)]
+combined <- scotland.fit2$summary.random[[1]]$mean[1:N]
+struct <- struct * scale_region
+iid <- combined - struct
+REsnonspat <- iid
+REsspat <- struct
+scotdata$REsnonspat <- iid
+scotdata$REsspat <- struct
+```
+
+Non-spatial random effects:
+```{r,fig.height=4,fig.width=5,eval=T}
+smap$REsnonspat = scotdata$REsnonspat 
+pal = function(n) brewer.pal(n,"Reds")
+plot(smap["REsnonspat"],pal = pal,nbreaks =8, breaks = "equal")
+```
+
+Spatial random effects:
+```{r,fig.height=4,fig.width=5,eval=T}
+smap$REsspat = scotdata$REsspat
+plot(smap["REsspat"], pal = pal, nbreaks=8, breaks = "equal")
+```
+
+## Exceedance probabilities
+
+A useful summmary is the posterior probability of excedance of epidemiologically ineresting thresholds.
+
+Below we map the posterior probabilities
+$$\Pr( \theta_i > 2 |y),$$
+for $i=1,\dots,56$.
+
+```{r}
+exc <- sapply( scotland.fit2$marginals.fitted.values,
+FUN = function(marg){1 - inla.pmarginal(q = 2, marginal = marg)})
+smap$exc <- exc
+plot(smap["exc"],pal = pal, nbreaks = 8, breaks = "equal")
+```
+
+## Spatial model: confounding by location
+
+The command ``plot(scotland.fit2)`` provides plots of: marginal posterior distributions of $\beta_0$, $\beta_1$, $\sigma_e^{-2}$, $\sigma_S^{-2}$ and summaries of the random effects $e_i$, $S_i$ and the linear predictors and fitted values, all by area.
+
+Note that the posterior mean estimate of $\beta_1$ associated with AFF goes from 0.068 $\rightarrow$ 0.026 when moving from the non-spatial to spatial model.
+
+This is known as confounding by location.
+
+The model attributes spatial variability in risk to either the covariate or to the spatial random effects.
+
+The posterior median estimate of $\sigma_e$ decreases from $1/\sqrt{2.9475}=0.58$ to $1/\sqrt{94.986}=0.10$ when the spatial random effect is added.
+
+The posterior median estimate of $\sigma_s$ is $1/\sqrt{1.125}=0.94$ but, as already noted, this value is not directly comparable to the estimate of $\sigma_e$.
+
+However, the scales on the figures shows that the spatial component dominates for these data.
+
+A rough estimate of the standard deviation of the spatial component can be determined by empirically calculating the standard deviation of the random effect estimates $\widehat{S}_i$.
+
+A more complete analysis would address the sensitivity to the prior specifications on $\sigma_e$ and $\sigma_s$.
+
+### INLA Graph File Creation
+
+The code below creates a neighborhood file for INLA that looks like:
+
+39
+
+1 4 11 13 22 38
+2 2 12 38
+3 5 11 13 20 36 39
+4 6 9 17 19 24 29 31
+
+...
+
+38 7 1 2 7 11 12 22 32
+
+39 8 3 13 17 19 20 21 27 30
+
+### Creating an INLA graph file from a shapefile
+
+```{r,eval=TRUE}
+library(spdep) # for poly2nb and nb2inla
+download.file("http://faculty.washington.edu/jonno/SISMIDmaterial/wacounty.shp",destfile = "wacounty.shp")
+download.file("http://faculty.washington.edu/jonno/SISMIDmaterial/wacounty.shx",destfile = "wacounty.shx")
+download.file("http://faculty.washington.edu/jonno/SISMIDmaterial/wacounty.dbf",destfile = "wacounty.dbf")
+countymap=st_read(dsn=".",layer = "wacounty")
+countymap = countymap[!st_is_empty(countymap),]
+nb.map <- poly2nb(countymap)
+nb2INLA("wacounty.graph",nb.map)
+```
+
+### Log relative risks as the outcome variable
+
+Often the data arise in the form of observed rates or observed relative risks. For illustration, we imagine we had received the latter for Scotland, rather than the full data.
+
+We model the log relative risk directly assuming they have a Gaussian distribution. We define $Z_i = \log \widehat\theta_i$ to emphasize that the observed data are now taken to be the log relative risks.
+
+Recall that if any of the counts $Y_i = 0$ (which would result in a relative risk of zero and a standard error of zero), we can use the approximations $Y_i^\star=Y_i+0.5$ and $E_i^\star=E_i+0.5$ to calculate $\widehat{\theta}^\star_i = \frac{Y_i^\star}{E_i^\star}$. In these cases, $Z_i = \log \widehat{\theta}^\star_i$. For simplicity, we assume this has been done.
+
+In INLA, we can fit the model (with $\text{}^\star$'s if necessary)
+
+$$Z_i=\log \left( \frac{Y_i}{E_i} \right) \sim \mbox{N}(\mu_i, \sigma^2)$$
+where $\mu_i=E[Z_i]$.
+
+INLA estimates the precision for the Gaussian observations, $1/\sigma^2$. We evaluate the variance of the observed ``data'' by using the Poisson variance assumption ---the mean equals the variance (in general the standard error of the rate can be estimated in a variety of ways, including the jackknife).
+
+Therefore, the $Z_i$ have ``known'' variances that we can approximate using the Delta method (as we did previously) as
+
+$$\widehat{\mbox{var}}(Z_i) = [E_i\exp(Z_i)]^{-1} = \frac{1}{E_i \widehat{\theta}_i}$$
+
+with $\text{}^\star$'s if needed.
+
+## Modeling the log relative risk as normal
+
+We calculate the log relative risks as $Z_i=\log \widehat{\theta^\star}_i$ and their variances for the Scotland lip cancer data.
+
+```{r}
+Scotland$Ystar <- ifelse(Scotland$Counts == 0, 
+                         Scotland$Counts + 0.5, 
+                         Scotland$Counts)
+Scotland$Estar <- ifelse(Scotland$Counts == 0, 
+                         Scotland$E + 0.5, 
+                         Scotland$E)
+Scotland$thetastar <- Scotland$Ystar/Scotland$Estar
+Scotland$Z <- log(Scotland$thetastar)
+Scotland$varZ <- 1/(Scotland$Estar * Scotland$thetastar)
+Scotland$precZ <- 1/Scotland$varZ
+```
+
+We can fit a normal model  for the log relative risks (the likelihood) in INLA with fixed normal precisions (equivalent to known variance) using the following code. 
+
+```{r,  eval=T}
+pcprec <- list(theta=list(prior='pc.prec',param=c(1,.05)))
+scotland.fit3a <- inla(Z ~ 1 + f(Region, model="iid", hyper=pcprec),
+  data = Scotland,family="gaussian",control.predictor=list(compute=TRUE),
+  control.family = list(hyper = list(prec = list(initial = log(1), fixed=TRUE))),
+  scale=precZ)
+```
+
+Note the ``scale=precZ`` which along with the previous line, fixes the measurement error variances. 
+
+We now compare the fits of the Poisson-Lognormal count outcome model and relative risk outcome models
+
+```{r, fig.height=4,fig.width=5.2,eval=TRUE}
+par(mfrow = c(1,1), mar=c(5,4,1,1))
+plot(scotland.fit1$summary.fitted.values[,4] ~ exp(scotland.fit3a$summary.fitted.values[,4]),
+     col = "dodgerblue", ylab = expression(paste(hat(theta)[i],": count model")), 
+     xlab = expression(paste(hat(theta)[i],": relative risk model")), cex.lab = 0.85)
+points(exp(scotland.fit3a$summary.fitted.values[,4][which(Scotland$Counts == 1)]), 
+       scotland.fit1$summary.fitted.values[,4][which(Scotland$Counts == 1)],
+       col = "orange", pch = 19, cex = 1.15)
+points(exp(scotland.fit3a$summary.fitted.values[,4][which(Scotland$Counts == 0)]), 
+       scotland.fit1$summary.fitted.values[,4][which(Scotland$Counts == 0)],
+       col = "red", pch = 19, cex = 1.15)
+points(exp(scotland.fit3a$summary.fitted.values[,4][which(Scotland$thetastar > 6)]), 
+       scotland.fit1$summary.fitted.values[,4][which(Scotland$thetastar > 6)],
+       col = "darkgreen", pch = 19, cex = 1.15)
+abline(0, 1, col = "gray50")
+legend("topleft",legend = c(expression(paste(Y[i], " = ", 0)), 
+                            expression(paste(Y[i], " = ", 1)), 
+                            expression(paste(Y[i], " = ", 9, " (", E[i], " = ", 1.4, ")"))),
+       pch = c(19, 19, 19), col = c("red", "orange", "darkgreen"), cex = 0.75, bty="n")
+```
+
+We fit a spatial normal log relative risk model with IID Normal random effects with a covariate
+
+Here, we add in a covariate and the spatial random effects
+
+```{r,  eval=T}
+formula <- Z ~ 1 + I(X) + 
+  f(Region, model="bym2",graph="scotland.graph",
+    scale.model=T,
+    constr=T,
+    hyper=list(
+      phi=list(
+        prior="pc",
+        param=c(0.5,0.5),
+        initial=1),
+      prec=list(
+        prior="pc.prec",
+        param=c(0.5/0.31,0.01),
+        initial=5)))
+scotland.fit3 <- inla(formula, data=Scotland, 
+family="gaussian",control.predictor=list(compute=TRUE),
+control.family = list(hyper = list(prec = list(initial = log(1), fixed=TRUE))),
+scale=precZ)
+```
+
+Comparison of spatial Poisson-Lognormal count outcome and relative risk outcome fits: differences in low and high extremes
+
+```{r, fig.height=4,fig.width=5.2,eval=TRUE}
+par(mfrow = c(1,1), mar=c(5,4,1,1))
+plot(scotland.fit2$summary.fitted.values[,4] ~ exp(scotland.fit3$summary.fitted.values[,4]),
+     col = "dodgerblue", ylab = expression(paste(hat(theta)[i],": count model")), 
+     xlab = expression(paste(hat(theta)[i],": relative risk model")), cex.lab = 0.85)
+points(exp(scotland.fit3$summary.fitted.values[,4][which(Scotland$Counts == 1)]), 
+       scotland.fit2$summary.fitted.values[,4][which(Scotland$Counts == 1)],
+       col = "orange", pch = 19, cex = 1.15)
+points(exp(scotland.fit3$summary.fitted.values[,4][which(Scotland$Counts == 0)]), 
+       scotland.fit2$summary.fitted.values[,4][which(Scotland$Counts == 0)],
+       col = "red", pch = 19, cex = 1.15)
+points(exp(scotland.fit3$summary.fitted.values[,4][which(Scotland$thetastar > 6)]), 
+       scotland.fit2$summary.fitted.values[,4][which(Scotland$thetastar > 6)],
+       col = "darkgreen", pch = 19, cex = 1.15)
+abline(0, 1, col = "gray50")
+legend("topleft",legend = c(expression(paste(Y[i], " = ", 0)), 
+                            expression(paste(Y[i], " = ", 1)), 
+                            expression(paste(Y[i], " = ", 9, " (", E[i], " = ", 1.4, ")"))),
+       pch = c(19, 19, 19), col = c("red", "orange", "darkgreen"), cex = 0.75, bty="n")
+```
+
+Regression coefficient comparison: very similar estimates (and posterior uncertainty estimates) of the regression coefficients:
+
+Count model:
+
+```{r,eval=TRUE}
+scotland.fit2$summary.fixed
+```
+
+Relative risk model:
+
+```{r,echo=FALSE,eval=TRUE}
+scotland.fit3$summary.fixed
+```
+
+## Missing area data in Scotland
+
+As an illustration we suppose that for the last area $Y_{56}$ is unobserved -- it is coded as ``NA`` (its value is zero in the data).
+
+The missing value can be imputed with the spatial ICAR model helping in this respect.
+
+If the count was missing because low (e.g., not released because less than 5) then this is informative and the following analysis is not approprtiate.
+
+```{r,eval=T}
+Scotland$CountsNA <- Scotland$Counts
+Scotland$CountsNA[56] <- NA
+scotland.fitNA <- inla(CountsNA ~ 1 + I(X) + 
+f(Region, model="bym2",graph="scotland.graph",
+  scale.model=T,
+  constr=T,
+  rankdef = 1,
+  hyper=list(
+    phi=list(
+      prior="pc",
+      param=c(0.5,0.5),
+      initial=1),
+  prec=list(
+    prior="pc.prec",
+    param=c(0.3/0.31,0.01),
+    initial=5))),data=Scotland, 
+family="poisson",E=E,control.predictor=list(compute=TRUE,link=1))
+```
+
+
+```{r,eval=T}
+summary(scotland.fitNA)
+```
+
+From the graph file we see that area 56 has areas 2,3,4,5 as neighbors -- we look at these values and see the SMRs are high, which explains why the predictive mean is high. 
+
+We include the prediction of the rate from the model in which the data are observed and see it is much lower.
+
+We look at  the last line of the graph file (for area 56):
+
+``56 4 2 3 4 5``
+
+We examine the SMRs from the 4 neighboring areas, and they are high.
+
+The covariate value for area 56 (which is also used in the prediction) is mid-range.
+
+We obtain the expected count of the missing area response and compare with the true response (which of course we know in this exercise)
+
+```{r,eval=T}
+scotland.fitNA$summary.fitted.values[56,]
+Scotland$E[56]
+Scotland$X[56]
+set56 <- c(2,3,4,5)
+Scotland$Counts[set56]
+Scotland$E[set56]
+Scotland$Counts[set56]/Scotland$E[set56]
+# Compare with fit from model in which Y[56]=0 is used as observed
+scotland.fit2$summary.fitted.values[56,]
+```
+
+Much lower predictor because the zero pulls down.
+
+In the model
+$$Y_i | \theta_i \sim Poisson( E_i \theta_i),$$
+the fitted values/predictions are for $\theta_i$, so no expected number and no Poisson sampling (so we're predicting the the relative risk).
+
+We confirm that the quantiles of the fitted values are the exponentiated predictions.
+
+
+```{r,eval=T}
+scotland.fitNA$summary.fitted.values[56,c(3:5)]
+exp(scotland.fitNA$summary.linear.predictor[56,c(3:5)])
+```
+
+
+## Censored Poisson Data in Scotland
+
+Sometimes, data come in a form where the smallest counts are censored and we only know that a count is below a certain threshold. For example, due to privacy concerns data with small counts in.
+
+To illustrate, we will censor the counts in the Scotland data that are below 2.
+
+```{r,eval=T}
+Scotland$CountsCen <- ifelse(Scotland$Counts < 2, 0, Scotland$Counts)
+```
+
+We now show how to implement the censored Poisson model in INLA.
+
+We will fit a Poisson-Lognormal model with a covariate and spatial REs, using PC priors.
+```{r,eval=T}
+
+# fit a Lognormal model with a censored Poisson family 
+#   with the censoring interval set to anything less than 2
+scotland.fit.cen <- inla(CountsCen ~ 1 + I(X) + 
+                           f(Region, model="bym2",graph="scotland.graph",
+                             scale.model=T,
+                             constr=T,
+                             rankdef = 1,
+                             hyper=list(
+                               phi=list(
+                                 prior="pc",
+                                 param=c(0.5,0.5),
+                                 initial=1),
+                               prec=list(
+                                 prior="pc.prec",
+                                 param=c(0.3/0.31,0.01),
+                                 initial=5))),
+                         family = "cenpoisson",
+                         control.family = list(cenpoisson.I = c(0,1)), 
+                         E=E,
+                         data = Scotland,
+                         control.predictor=list(compute=TRUE,link=1))
+```
+
+We examine the regression coefficients for the censored and uncensored data.
+
+Censored data:
+
+```{r,eval=T}
+scotland.fit.cen$summary.fixed
+```
+
+Uncensored data:
+
+```{r,eval=T}
+scotland.fit2$summary.fixed
+```
+
+We compare fitted values with the model fitted to the uncensored data
+
+```{r, fig.height=4.5}
+cen_est <- scotland.fit.cen$summary.fitted.values$`0.5quant`
+non_cen_est <- scotland.fit2$summary.fitted.values$`0.5quant`
+par(mfrow=c(1,1))
+plot(cen_est ~ non_cen_est,
+     col = alpha("coral1",0.5),pch=19,
+       xlab="Non-censored",ylab="Censored")
+abline(0,1,col="gray15")
+points(non_cen_est[Scotland$CountsCen==0],
+       cen_est[Scotland$CountsCen==0],
+       col = "royalblue1",pch=19)
+legend("topleft",c("censored points"),pch=c(19), col=c("royalblue"),bty="n")
+```
+
+## PC prior details
+
+For a precision in the model $x | \tau \sim N(0,1/\tau)$, the PC prior is obtained via the following rationale:
+
+- The prior on the sd is exponential with rate $\lambda$, which we need to specify
+
+- The exponential leads to a type-2 Gumbel on the precision (change of variables)
+
+- Hence we have the model:
+\begin{eqnarray*}
+x | \tau &\sim& N(0,1/\tau)\\
+\tau &\sim& \mbox{Gumbel}(\lambda)
+\end{eqnarray*}
+
+- If we integrate out $\tau$, we can find the marginal sd of $x$
+
+- For more details see Simpson et al (2017, p. 9, top of right column) and Bakka et al (2018).
+
+The PC prior for $\phi$ in the BYM2 random effect is more complex, and does not have a nice distribution. However, it retains the interpretation of a PC prior, which is why it useful. See details in Simpson et al. (2017).
