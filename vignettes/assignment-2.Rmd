@@ -1,0 +1,89 @@
+---
+title: "CSSS 554: Assignment 2"
+subtitle: "Department of Biostatistics @ University of Washington"
+# author: 
+- Alejandro Hernandez
+date: "Winter Quarter 2025"
+output: pdf_document
+---
+
+```{r setup, include=F}
+# Clear environment
+rm(list=ls())
+
+# Setup options
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, results='hide')
+options(knitr.kable.NA = '-', digits = 2)
+labs = knitr::all_labels()
+labs = labs[!labs %in% c("setup", "allcode")]
+```
+
+```{r load}
+# Load relevant packages
+library(devtools) 
+devtools::install_github("richardli/surveyPrev") 
+library(surveyPrev) 
+library(dplyr) 
+library(kableExtra) 
+library(labelled) 
+library(naniar) 
+library(sjlabelled) 
+library(haven) 
+library(dplyr) 
+library(geodata)
+
+# Load data
+
+#if getting data using rdhs, configure rdhs:
+rdhs::set_rdhs_config(email = "alejh@uw.edu",
+        project = "Prevalence Estimation and Mapping (Corrected Data Request)")
+
+# example settings 
+indicator <- "CM_ECMR_C_NNR"  # alternative ID: "nmr" 
+year <- 2016 # for example 
+country <- "Armenia" 
+
+# get data from rdhs() 
+dhsData<-getDHSdata(country = country, indicator = indicator, year = year) 
+geo <- getDHSgeo(country = country, year = year)
+
+# Handle missing data
+
+```
+
+```{r}
+# load data locally
+file_path <- "../ZMIR71DT/ZMIR71FL.DTA" # put your filepath here for data
+dhsData <- as.data.frame(read_dta(file_path))
+file_path_geo<- "../ZMGE71FL/ZMGE71FL.shp" # put your shapefile filepath here
+geo <- st_read(file_path_geo)
+```
+
+```{r}
+#get dataframe with your indicator
+data <- getDHSindicator(dhsData, indicator = indicator)
+head(data)
+
+#get your geographic data
+geo <- getDHSgeo(country = country, year = year)
+
+#get your admin1, admin2 geographic level data
+poly.adm1 <- geodata::gadm(country="ZMB", level=1, path=tempdir())
+poly.adm1 <- sf::st_as_sf(poly.adm1)
+poly.adm2 <- geodata::gadm(country="ZMB", level=2, path=tempdir())
+poly.adm2 <- sf::st_as_sf(poly.adm2)
+```
+
+
+
+
+**End of report. Code appendix begins on the next page.**
+
+\pagebreak
+
+## Code Appendix
+
+```{r allcode, ref.label = knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+**End of document.**
