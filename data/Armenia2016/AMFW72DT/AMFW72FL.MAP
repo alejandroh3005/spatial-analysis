@@ -1,0 +1,118 @@
+﻿                                                   AMFW72FL
+                                                AMFW72FL_DICT
+
+                                        C:\Countries\AM72\AMFW72FL.DCF
+                                    Last Modified:  9/20/2017  12:24:07 PM
+
+--------------------------------------------------------------------------------------------------------------
+Level Name                    Level Label                                                  Type            Rec
+  Record Name                   Record Label                                              Value  Req  Max  Len
+--------------------------------------------------------------------------------------------------------------
+LEVEL_1                       Level 1
+  FWRECORD                      Fieldworker record                                               Yes    1   39
+Level: Level 1                                         Record: Fieldworker record
+--------------------------------------------------------------------------------------------------------------
+                                                                                 Data Item            Dec Zero
+Item Name              Item Label                                     Start  Len Type Type  Occ  Dec Char Fill
+--------------------------------------------------------------------------------------------------------------
+                         (record type)                                    0    0   AN    I    1    0   No   No
+FW101             (id) Fieldworker code                                   1    4    N    I    1    0   No   No
+FW000                  Country code and phase                             5    3   AN    I    1    0   No   No
+FW102                  Fieldworker region of residence                    8    3    N    I    1    0   No   No
+                               1   Yerevan
+                               2   Aragatsotn
+                               3   Ararat
+                               4   Armavir
+                               5   Gegharkunik
+                               6   Lori
+                               7   Kotayk
+                               8   Shirak
+                               9   Syunik
+                               10  Vayots dzor
+                               11  Tavush
+FW103                  Fieldworker type of place of residence            11    1    N    I    1    0   No   No
+                               1  CIty
+                               2  Town
+                               3  Rural
+                          (na)    Not applicable
+FW104                  Fieldworker age                                   12    2    N    I    1    0   No   No
+                               15:65  
+                          (na)        Not applicable
+FW105                  Fieldworker sex                                   14    1    N    I    1    0   No   No
+                               1  Male
+                               2  Female
+                          (na)    Not applicable
+FW106                  Fieldworker marital status                        15    1    N    I    1    0   No   No
+                               1  Currently married
+                               2  Living with a man/woman
+                               3  Widowed
+                               4  Divorced
+                               5  Separated
+                               6  Never married or lived with a man/woman
+                          (na)    Not applicable
+FW107                  Fieldworker number of living children             16    2    N    I    1    0   No   No
+                               0:24  
+                          (na)       Not applicable
+FW108                  Fieldworker ever had a child who died             18    1    N    I    1    0   No   No
+                               1  Yes
+                               2  No
+                          (na)    Not applicable
+FW109                  Highest level of school attended by fieldworker   19    1    N    I    1    0   No   No
+                               1  Primary-Basic-Secondary (1-12)
+                               2  Secondary-Special
+                               3  Higher
+                          (na)    Not applicable
+FW110                  Highest grade/form/year at that level completed   20    2    N    I    1    0   No   No
+                               0     Less than one year at level
+                               1:15  
+                          (na)       Not applicable
+FW111                  Fieldworker religion                              22    2    N    I    1    0   No   No
+                               0:98  
+                          (na)       Not applicable
+FW112                  Fieldworker ethnicity                             24    3    N    I    1    0   No   No
+                               0    No answer
+                               1    Whitte
+                          (na)      Not applicable
+FW113A                 Armenian                                          27    1   AN    I    1    0   No   No
+                               A  Language A
+FW113B                 Assyrian                                          28    1   AN    I    1    0   No   No
+                               B  Language B
+FW113C                 English                                           29    1   AN    I    1    0   No   No
+                               C  Language C
+FW113D                 Greek                                             30    1   AN    I    1    0   No   No
+                               D  Language D
+FW113E                 Kurdish/Yezidi                                    31    1   AN    I    1    0   No   No
+                               E  Language E
+FW113F                 Russian                                           32    1   AN    I    1    0   No   No
+                               F  Language F
+FW113X                 Other language                                    33    1   AN    I    1    0   No   No
+                               X  Other language
+FW114                  Fieldworker's mother tongue/native language       34    2    N    I    1    0   No   No
+                               1   Armenian
+                               2   Assyrian
+                               3   English
+                               4   Greek
+                               5   Kurdish/Yezidi
+                               6   Russian
+                               96  Other
+                          (na)     Not applicable
+FW115                  Has fieldworker ever worked on a DHS              36    1    N    I    1    0   No   No
+                               1  Yes
+                               2  No
+                          (na)    Not applicable
+FW116                  Has fieldworker ever worked on any other survey   37    1    N    I    1    0   No   No
+                               1  Yes
+                               2  No
+                          (na)    Not applicable
+FW117                  Was fieldworker working for agency at the time    38    1    N    I    1    0   No   No
+                               1  Yes, National statistical service
+                               2  Yes, Ministry of health
+                               3  No
+                          (na)    Not applicable
+FW118                  Is fieldworker permanent or te temporary employ   39    1    N    I    1    0   No   No
+                               1  Permanent
+                               2  Temporary
+                          (na)    Not applicable
+--------------------------------------------------------------------------------------------------------------
+Relation Name         Primary               Linked by             Secondary             Linked by
+--------------------------------------------------------------------------------------------------------------

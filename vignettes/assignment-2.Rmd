@@ -16,12 +16,13 @@ knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, results='hide')
 options(knitr.kable.NA = '-', digits = 2)
 labs = knitr::all_labels()
 labs = labs[!labs %in% c("setup", "allcode")]
+
 ```
 
 ```{r load}
 # Load relevant packages
 library(devtools) 
-devtools::install_github("richardli/surveyPrev") 
+devtools::install_github("richardli/surveyPrev")
 library(surveyPrev) 
 library(dplyr) 
 library(kableExtra) 
@@ -31,50 +32,67 @@ library(sjlabelled)
 library(haven) 
 library(dplyr) 
 library(geodata)
-
-# Load data
-
-#if getting data using rdhs, configure rdhs:
-rdhs::set_rdhs_config(email = "alejh@uw.edu",
-        project = "Prevalence Estimation and Mapping (Corrected Data Request)")
-
-# example settings 
-indicator <- "CM_ECMR_C_NNR"  # alternative ID: "nmr" 
-year <- 2016 # for example 
-country <- "Armenia" 
-
-# get data from rdhs() 
-dhsData<-getDHSdata(country = country, indicator = indicator, year = year) 
-geo <- getDHSgeo(country = country, year = year)
-
-# Handle missing data
-
+library(sf)
+library(INLA)
 ```
 
+1. After creating a DHS account, download and process the required data.
+
+(a) Show the first six lines of the data object created using the getDHSindicator function.
+
 ```{r}
-# load data locally
-file_path <- "../ZMIR71DT/ZMIR71FL.DTA" # put your filepath here for data
+indicator <- "unmet_family"
+year <- 2010
+country <- "Armenia"
+
+## Load data locally
+file_path <- "../data/Armenia2016/AMBR72DT/AMBR72FL.DTA" # data file
 dhsData <- as.data.frame(read_dta(file_path))
-file_path_geo<- "../ZMGE71FL/ZMGE71FL.shp" # put your shapefile filepath here
-geo <- st_read(file_path_geo)
-```
-
-```{r}
-#get dataframe with your indicator
+indicator <- "unmet_family"
 data <- getDHSindicator(dhsData, indicator = indicator)
 head(data)
 
-#get your geographic data
-geo <- getDHSgeo(country = country, year = year)
+```
 
-#get your admin1, admin2 geographic level data
-poly.adm1 <- geodata::gadm(country="ZMB", level=1, path=tempdir())
+(b) Show the first six lines of the data object created using the adminInfo() function for admin=1.
+
+```{r}
+# Get admin 1 info
+poly.adm1 <- geodata::gadm(country = country, level = 1, path = tempdir())
 poly.adm1 <- sf::st_as_sf(poly.adm1)
-poly.adm2 <- geodata::gadm(country="ZMB", level=2, path=tempdir())
-poly.adm2 <- sf::st_as_sf(poly.adm2)
+
+adminInfo(poly.adm = poly.adm1, admin = 1, by.adm = "NAME_1")
+
+```
+
+2. Obtain prevalence estimates at admin1, using the surveyPrev::directEST() function. Provide a table with admin names, prevalence estimates, variance of prevalence estimates. [Hint: These are the Hajek estimates.]
+
+```{r}
+
+# Get geo data locally
+file_path_geo <- "../data/Armenia2016/AMGE71FL - GPS/AMGE71FL.shp" # shapefile
+geo <- st_read(file_path_geo)
+
+## Get prevalence estimates at admin 1 level
+# Get cluster information at Admin 1
+source("../R/cluster.info.revised.R")
+cluster.info <- cluster.info.revised(
+  geo = geo, 
+  poly.adm1 = poly.adm1, 
+  by.adm1 = "NAME_1"
+  )
+
+# Estimate prevalence
+estimates <- directEST(data = data, cluster.info = cluster.info, admin = 1)
+
 ```
 
 
+3. Using the mapPlot() function, provide two maps, one of the prevalence estimates and the other of the standard errors (which are the square roots of the variances you put in a table in the previous part). And to reiterate, these are at admin1.
+
+```{r}
+mapPlot(estimates)
+```
 
 
 **End of report. Code appendix begins on the next page.**
