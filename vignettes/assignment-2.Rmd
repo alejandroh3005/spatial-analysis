@@ -1,7 +1,7 @@
 ---
 title: "CSSS 554: Assignment 2"
 subtitle: "Department of Biostatistics @ University of Washington"
-# author: 
+author:
 - Alejandro Hernandez
 date: "Winter Quarter 2025"
 output: pdf_document
@@ -12,7 +12,7 @@ output: pdf_document
 rm(list=ls())
 
 # Setup options
-knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, results='hide')
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
 options(knitr.kable.NA = '-', digits = 2)
 labs = knitr::all_labels()
 labs = labs[!labs %in% c("setup", "allcode")]
@@ -34,13 +34,21 @@ library(dplyr)
 library(geodata)
 library(sf)
 library(INLA)
+library(SUMMER)
+library(knitr)
+
 ```
 
 1. After creating a DHS account, download and process the required data.
 
+This assignment models the proportion of women with an unmet need for family planning across Admin-1-level regions of Armenia. Armenia is a landlocked country, located in West Asia. It is bordered on the north and east by Georgia and Azerbaijan. On the south and west, it shares borders with Iran and Turkey.
+
 (a) Show the first six lines of the data object created using the getDHSindicator function.
 
-```{r}
+```{r question-1a}
+#### QUESTION 1 ####
+
+# Data settings
 indicator <- "unmet_family"
 year <- 2010
 country <- "Armenia"
@@ -49,49 +57,69 @@ country <- "Armenia"
 file_path <- "../data/Armenia2016/AMBR72DT/AMBR72FL.DTA" # data file
 dhsData <- as.data.frame(read_dta(file_path))
 indicator <- "unmet_family"
-data <- getDHSindicator(dhsData, indicator = indicator)
+data <- surveyPrev::getDHSindicator(dhsData, indicator = indicator)
+# View head
 head(data)
 
 ```
 
 (b) Show the first six lines of the data object created using the adminInfo() function for admin=1.
 
-```{r}
+```{r question-1b}
 # Get admin 1 info
 poly.adm1 <- geodata::gadm(country = country, level = 1, path = tempdir())
 poly.adm1 <- sf::st_as_sf(poly.adm1)
-
-adminInfo(poly.adm = poly.adm1, admin = 1, by.adm = "NAME_1")
+admin.info <- surveyPrev::adminInfo(poly.adm = poly.adm1, admin = 1, by.adm = "NAME_1")
+head(admin.info$data)
 
 ```
 
 2. Obtain prevalence estimates at admin1, using the surveyPrev::directEST() function. Provide a table with admin names, prevalence estimates, variance of prevalence estimates. [Hint: These are the Hajek estimates.]
 
-```{r}
+```{r question-2}
+#### QUESTION 2 ####
 
-# Get geo data locally
+# Get geographic data locally
 file_path_geo <- "../data/Armenia2016/AMGE71FL - GPS/AMGE71FL.shp" # shapefile
 geo <- st_read(file_path_geo)
 
 ## Get prevalence estimates at admin 1 level
 # Get cluster information at Admin 1
 source("../R/cluster.info.revised.R")
-cluster.info <- cluster.info.revised(
-  geo = geo, 
-  poly.adm1 = poly.adm1, 
-  by.adm1 = "NAME_1"
-  )
+cluster.info <- cluster.info.revised(geo = geo, poly.adm1 = poly.adm1, 
+                                     by.adm1 = "NAME_1")
 
 # Estimate prevalence
-estimates <- directEST(data = data, cluster.info = cluster.info, admin = 1)
+res_ad1 <- directEST(data = data, cluster.info = cluster.info, admin = 1)
+plot_ad1 <- res_ad1$res.admin1 %>% 
+  select("Admin 1 Name"=admin1.name, "Direct Estimate"=direct.est,
+         "Variance of Estimate"=direct.var)
+plot_ad1
 
 ```
 
-
 3. Using the mapPlot() function, provide two maps, one of the prevalence estimates and the other of the standard errors (which are the square roots of the variances you put in a table in the previous part). And to reiterate, these are at admin1.
 
-```{r}
-mapPlot(estimates)
+```{r question-3}
+#### QUESTION 3 ####
+
+# Arrange all estimates for mapPlot
+plot_ad1$"SE of Estimate" <- sqrt(plot_ad1$"Variance of Estimate")
+plot_ad1$model <- "Percentage of Women with Unmet Family Needs in Armenia"
+
+# Map direct estimates and uncertainty
+g1 <- SUMMER::mapPlot(data = plot_ad1, geo = poly.adm1,
+              by.data = "Admin 1 Name", by.geo = "NAME_1", is.long = TRUE,
+              variable = "model", 
+              value = "Direct Estimate", 
+              legend.label = "Direct Estimate")
+g2 <- mapPlot(data = plot_ad1, geo = poly.adm1,
+              by.data = "Admin 1 Name",  by.geo = "NAME_1", is.long = TRUE,
+              variable = "model", value = "SE of Estimate", 
+              legend.label = "SE of Estimate")
+g1
+g2
+
 ```
 
 
