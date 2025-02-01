@@ -1,0 +1,96 @@
+---
+title: "CSSS 554: Assignment 3"
+subtitle: "Department of Biostatistics @ University of Washington"
+author:
+- Alejandro Hernandez
+date: "Winter Quarter 2025"
+output: pdf_document
+---
+
+```{r setup, include=F}
+# Clear environment
+rm(list=ls())
+
+# Setup options
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, results='hide')
+options(knitr.kable.NA = '-', digits = 2)
+labs = knitr::all_labels()
+labs = labs[!labs %in% c("setup", "allcode")]
+```
+
+```{r load}
+# Load relevant packages
+
+# Load data
+load("../data/HW3data.Rdata")
+exp_counts <- Exp.mv3
+obs_counts <- Obs.mv3
+
+# Handle missing data
+
+```
+
+Let $Y_i$ and $E_i$, $i = 1, ..., n$, denote the observed and expected counts in region $i$, $i = 1, ... , n$. Then consider the model
+\center
+$Y_i | \theta_i \sim Poisson(E_i \theta_i)$
+\center
+
+1. 
+(a) Provide a map of the observed counts $Y_i$.
+
+(b) Provide a map of the observed counts $E_i$.
+
+(c) Provide a map of the SMRs, defined as 
+\center
+SMR_i $= \hat{\theta_i} = \frac{Y_i}{E_i}$
+\center
+for $i = 1,...,n$. Comment on the variability of the SMRs.
+
+(d) Plot the SMRs versus the estimated standard errors, which are given by $\sqrt{\hat{\theta_i}/E_i}$.
+
+2. In this question we will smooth the SMRs using the disease mapping Poisson-Lognormal model:
+
+\center
+$Y_i | \beta_i, \epsilon_i \sim_{ind} Poisson(E_i e^{\beta_0} e^{e_i})$
+$e_i|\sigma_i \sim N(0, \sigma^2_e)$
+\center
+for $i$,$i=1,...,n$.
+
+(a) Using the `inla` function in `R` fit this model using the default priors for $\beta_0$ and $\sigma_e$. Report the posterior medians and 95% intervals for $\beta_0$ and $\sigma_e$.
+
+(b) Extract the posterior medians of the relative risk (RR) estimates and provide a map of these.
+
+(c) Plot these posterior RR estimates against the SMRs, and comment.
+
+(d) Plot the posterior standard deviations of the RRs against the standard errors of the SMRs and comment.
+
+3. In this question we will smooth the SMRs using the disease mapping Poisson-LognormalSpatial model:
+
+...
+
+(a) Using the inla function in R fit this model using the bym2 model, with the default prior for $\beta_0$ and the following prior specification for the spatial and non-spatial random effects (note that you must be in the directory that contains the VR.graph file):
+
+f(Region, model="bym2", graph="VR.graph", scale.model=T, constr=T, hyper=list(phi=list(prior="pc", param=c(0.5, 0.5), initial=1), prec=list(prior="pc.prec", param=c(0.3,0.01), initial=5)))
+
+These choices correspond to the prior belief that there is a 1% chance that the total residual standard deviation is greater than 0.3, and a 50% chance that the proportion of the variance that is spatial is bigger than 0.5.  
+
+Report both the posterior medians and 95% intervals for $\beta_0$, the total variance of the random effects, and the proportion of the total variance attributed to the spatial random effect.
+
+(b) Extract the relative risk estimates and provide a map of these. Compare these estimates with the SMRs and with those obtained from the Poisson-Lognormal model (i.e., the model with IID random effects only) that you fit in Question 2.
+
+4. Bonus Question: Suppose that instead of having available the counts and expected numbers we have access to the relative risks and their standard errors. Take the data as 
+
+and fit the model
+
+Fit this model using `inla` and plot the estimated relative risks from this model against the estimates from the Poisson-Lognormal model, and comment.
+
+**End of report. Code appendix begins on the next page.**
+
+\pagebreak
+
+## Code Appendix
+
+```{r allcode, ref.label = knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+**End of document.**
