@@ -21,8 +21,8 @@ labs = labs[!labs %in% c("setup", "allcode")]
 
 ```{r load}
 # Load relevant packages
-library(devtools) 
-devtools::install_github("richardli/surveyPrev")
+# library(devtools) 
+# devtools::install_github("richardli/surveyPrev")
 library(surveyPrev) 
 library(dplyr) 
 library(kableExtra) 
@@ -91,7 +91,7 @@ cluster.info <- cluster.info.revised(geo = geo, poly.adm1 = poly.adm1,
 
 # Estimate prevalence
 res_ad1 <- directEST(data = data, cluster.info = cluster.info, admin = 1)
-plot_ad1 <- res_ad1$res.admin1 %>% 
+  plot_ad1 <- res_ad1$res.admin1 %>% 
   select("Admin 1 Name"=admin1.name, "Direct Estimate"=direct.est,
          "Variance of Estimate"=direct.var)
 plot_ad1

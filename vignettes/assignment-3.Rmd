@@ -20,33 +20,84 @@ labs = labs[!labs %in% c("setup", "allcode")]
 
 ```{r load}
 # Load relevant packages
+# library(surveyPrev) 
+# library(sf)
+library(SUMMER)
 
-# Load data
+## Load data
 load("../data/HW3data.Rdata")
-exp_counts <- Exp.mv3
-obs_counts <- Obs.mv3
+# Shapefile for plotting (VR.cart$CODMUNI corresponds to rownames(Exp.mv3))
+geo <- VR.cart
 
-# Handle missing data
+# Make a table of observed (Y) and expected (E) counts
+ad1 <- data.frame(ID = rownames(Exp.mv3),
+                  Y = data.frame(Obs.mv3)$Lung, 
+                  E = data.frame(Exp.mv3)$Lung)
+# Compute SMR (standardized mortality ratio)
+ad1$SMR = with(ad1, Y/E)
+# Compute S.E. of SMR
+ad1$SMR.se = with(ad1, sqrt(SMR/E))
+head(ad1)
 
 ```
 
-Let $Y_i$ and $E_i$, $i = 1, ..., n$, denote the observed and expected counts in region $i$, $i = 1, ... , n$. Then consider the model
+## Background 
+
+We aim to map lung cancer mortality data for men in the Valencia region of Spain from 1991-2000. For more details on the data, see Martinez-Beneito et al. (2019, Disease Mapping). Expected deaths are adjusted for reference rate only.
+
+1. Let $Y_i$ and $E_i$, $i = 1, ..., n$, denote the observed and expected counts in region $i$, $i = 1, ... , n$. Then consider the model
 \center
 $Y_i | \theta_i \sim Poisson(E_i \theta_i)$
 \center
 
-1. 
-(a) Provide a map of the observed counts $Y_i$.
+(a) (b) Provide a map of the observed counts $Y_i$ and observed counts $E_i$.
 
-(b) Provide a map of the observed counts $E_i$.
+```{r question-1a-1b, fig.cap = "Lung cancer mortality among men in the Valencia region of Spain from 1991-2000."}
+####################
+#### QUESTION 1 ####
+####################
 
-(c) Provide a map of the SMRs, defined as 
-\center
-SMR_i $= \hat{\theta_i} = \frac{Y_i}{E_i}$
-\center
-for $i = 1,...,n$. Comment on the variability of the SMRs.
+# Map of observed and expected counts
+SUMMER::mapPlot(data = ad1, variables = c("Y","E"), 
+                values = c("Y","E"), geo = geo,
+                by.data = "ID", by.geo = "CODMUNI",
+                legend.label = "Number of deaths")
+
+```
+
+See Figure 1 for maps of observed and expected lung cancer mortality.
+
+(c) Provide a map of the standardized mortality rates (SMR), defined as SMR_i $= \hat{\theta_i} = \frac{Y_i}{E_i}$ for $i = 1,...,n$.
+
+```{r question-1c, fig.cap = "Standardized mortality rate of lung cancer mortality."}
+# Map of SMR
+mapPlot(data = ad1, variables = "SMR", values = "SMR", 
+        geo = geo, by.data = "ID", by.geo = "CODMUNI")
+
+```
+
+```{r question-1c-supplementary, eval=FALSE}
+## Distribution of SMR
+# Histogram
+hist(ad1$SMR, main = "", xlab = "Standardized mortality rate", 
+     labels = TRUE, breaks = 20)
+abline(v=quantile(ad1$SMR, probs = c(.25, .5, .75)), col = "red")
+# Summary statistics
+summary(ad1$SMR)
+
+```
+
+See Figure 2 for a map of standardized lung cancer mortality rates. Apart from a few near zero estimates the distribution of SMR is approximately normal, centered at 87%, with about half of the values sitting between 60% and 110%. 27 of the 540 regions have an SMR over 150%, and only 2 are greater than 200%.
 
 (d) Plot the SMRs versus the estimated standard errors, which are given by $\sqrt{\hat{\theta_i}/E_i}$.
+
+```{r, fig.cap = "Standardized mortality rate versus estimate standard error"}
+plot(x = ad1$SMR, y = ad1$SMR.se,
+     xlab = "Standardized mortality rate", 
+      ylab = "Standard error")
+lines(0:10, 0:10, col = "red")
+
+```
 
 2. In this question we will smooth the SMRs using the disease mapping Poisson-Lognormal model:
 
@@ -57,6 +108,14 @@ $e_i|\sigma_i \sim N(0, \sigma^2_e)$
 for $i$,$i=1,...,n$.
 
 (a) Using the `inla` function in `R` fit this model using the default priors for $\beta_0$ and $\sigma_e$. Report the posterior medians and 95% intervals for $\beta_0$ and $\sigma_e$.
+
+```{r question-2a}
+####################
+#### QUESTION 2 ####
+####################
+
+```
+
 
 (b) Extract the posterior medians of the relative risk (RR) estimates and provide a map of these.
 
@@ -76,6 +135,13 @@ These choices correspond to the prior belief that there is a 1% chance that the 
 
 Report both the posterior medians and 95% intervals for $\beta_0$, the total variance of the random effects, and the proportion of the total variance attributed to the spatial random effect.
 
+```{r question-3a}
+####################
+#### QUESTION 3 ####
+####################
+
+```
+
 (b) Extract the relative risk estimates and provide a map of these. Compare these estimates with the SMRs and with those obtained from the Poisson-Lognormal model (i.e., the model with IID random effects only) that you fit in Question 2.
 
 4. Bonus Question: Suppose that instead of having available the counts and expected numbers we have access to the relative risks and their standard errors. Take the data as 
@@ -83,6 +149,13 @@ Report both the posterior medians and 95% intervals for $\beta_0$, the total var
 and fit the model
 
 Fit this model using `inla` and plot the estimated relative risks from this model against the estimates from the Poisson-Lognormal model, and comment.
+
+```{r question-4}
+####################
+#### QUESTION 4 ####
+####################
+
+```
 
 **End of report. Code appendix begins on the next page.**
 
