@@ -20,10 +20,9 @@ labs = labs[!labs %in% c("setup", "allcode")]
 
 ```{r load}
 # Load relevant packages
-# library(surveyPrev) 
-# library(sf)
 library(SUMMER)  # spatial mapping
 library(INLA)    # spatial modelling
+library(dplyr)   # data manipulation
 
 ## Load data
 load("../data/HW3data.Rdata")
@@ -46,68 +45,63 @@ head(spain.ad1)
 
 We aim to map lung cancer mortality data for men in the Valencia region of Spain from 1991-2000. For more details on the data, see Martinez-Beneito et al. (2019, Disease Mapping). Expected deaths are adjusted for reference rate only.
 
+## Analysis
+
 1. Let $Y_i$ and $E_i$, $i = 1, ..., n$, denote the observed and expected counts in region $i$, $i = 1, ... , n$. Then consider the model
-\center
-$Y_i | \theta_i \sim Poisson(E_i \theta_i)$
-\center
+
+  $Y_i | \theta_i \sim Poisson(E_i \theta_i)$
 
 (a) (b) Provide a map of the observed counts $Y_i$ and observed counts $E_i$.
 
-```{r question-1a-1b, fig.cap="Lung cancer mortality among men in the Valencia region of Spain from 1991-2000."}
+```{r question-1a-1b, fig.asp=1, fig.cap="Lung cancer mortality among men in the Valencia region of Spain from 1991-2000."}
 ####################
 #### QUESTION 1 ####
 ####################
 
 # Map of observed and expected counts
-SUMMER::mapPlot(data = spain.ad1, variables = c("Count","Expected"), 
-                values = c("Count","Expected"), geo = geo,
+SUMMER::mapPlot(data = spain.ad1, geo = geo,
+                variables = c("Count","Expected"), values = c("Count","Expected"), 
+                labels = c("Observed", "Expected"),
                 by.data = "Region", by.geo = "CODMUNI",
-                legend.label = "Number of deaths")
+                legend.label = "Number of deaths", size = 0.01)
 
 ```
 
 See Figure 1 for maps of observed and expected lung cancer mortality.
 
-(c) Provide a map of the standardized mortality rates (SMR), defined as SMR_i $= \hat{\theta_i} = \frac{Y_i}{E_i}$ for $i = 1,...,n$.
+(c) Provide a map of the standardized mortality rates (SMR), defined as SMR~i~ $= \hat{\theta_i} = \frac{Y_i}{E_i}$ for $i = 1,...,n$.
 
-```{r question-1c, fig.cap="Standardized mortality rate of lung cancer mortality."}
+```{r question-1c, fig.asp=1, fig.cap="Standardized mortality rate of lung cancer mortality."}
 # Map of SMR
-mapPlot(data = spain.ad1, variables = "SMR", values = "SMR", 
-        geo = geo, by.data = "Region", by.geo = "CODMUNI")
+mapPlot(data = spain.ad1, geo = geo, 
+        variables = "SMR", values = "SMR", 
+        by.data = "Region", by.geo = "CODMUNI", 
+        size = 0.01, direction = -1)
 
 ```
 
-```{r question-1c-supplementary, eval=FALSE}
-## Distribution of SMR
-# Histogram
-hist(spain.ad1$SMR, main = "", xlab = "Standardized mortality rate", 
-     labels = TRUE, breaks = 20)
-abline(v=quantile(ad1$SMR, probs = c(.25, .5, .75)), col = "red")
-# Summary statistics
-summary(spain.ad1$SMR)
-
-```
-
-See Figure 2 for a map of standardized lung cancer mortality rates. Apart from a few near zero estimates the distribution of SMR is approximately normal, centered at 87%, with about half of the values sitting between 60% and 110%. 27 of the 540 regions have an SMR over 150%, and only 2 are greater than 200%.
+See Figure 2 for a map of standardized lung cancer mortality rates. Apart from a few near zero estimates, its distribution is approximately normal. SMR is centered at 87% with about half of the values sitting between 60% and 110%. 27 of the 540 regions have an SMR over 150%, and only 2 are greater than 200%.
 
 (d) Plot the SMRs versus the estimated standard errors, which are given by $\sqrt{\hat{\theta_i}/E_i}$.
 
-```{r, fig.asp=1, fig.cap="Standardized mortality rate versus estimate standard error"}
-# Plot SMR versus its SE
-plot(x = spain.ad1$SMR, y = spain.ad1$SMR.se,
-     xlab = "Standardized mortality rate", 
-      ylab = "Standard error")
+```{r, fig.asp=1, fig.cap="Standardized mortality rate versus estimate standard error."}
+# Plot SMR versus se(SMR)
+plot(x = spain.ad1$SMR, y = spain.ad1$SMR.se, 
+     xlab = "Standardized mortality rate (SMR)", 
+     ylab = "Standard error, se(SMR)")
 lines(0:10, 0:10, col = "red")
 
 ```
 
+See Figure 3 for the standardized mortality rates versus their estimated standard errors. The difference between an SMR estimate and its standard error increases as SMR grows.
+
 2. In this question we will smooth the SMRs using the disease mapping Poisson-Lognormal model:
 
-\center
-$Y_i | \beta_i, \epsilon_i \sim_{ind} Poisson(E_i e^{\beta_0} e^{e_i})$
-$e_i|\sigma_i \sim N(0, \sigma^2_e)$
-\center
-for $i$,$i=1,...,n$.
+  $Y_i | \beta_i, \epsilon_i \sim_{ind} Poisson(E_i e^{\beta_0} e^{e_i})$
+
+  $e_i|\sigma_e^2 \sim_{iid} N(0, \sigma^2_e)$
+
+for $i$, $i=1,...,n$.
 
 (a) Using the `inla` function in `R` fit this model using the default priors for $\beta_0$ and $\sigma_e$. Report the posterior medians and 95% intervals for $\beta_0$ and $\sigma_e$.
 
@@ -119,103 +113,75 @@ for $i$,$i=1,...,n$.
 # Fit Poisson-lognormal model in INLA:
 spain.fit <- INLA::inla(Count ~ 1 + f(Region, model = "iid"), data = spain.ad1,
                         family = "poisson", E = Expected)
+# Get parameter estimates
 beta0.est <- spain.fit$summary.fixed[4]
 ##              mean    sd      0.025quant  0.5quant  0.97quant
-## Beta_0       -0.13   0.016   -0.17       -0.13     -0.1
-sigma2.est <- 1 / spain.fit$summary.hyperpar[4]
-##              mean    sd      0.025quant  0.5quant  0.97quant
-## 1/Precision  0.063   0.54    0.08        0.064     0.051
-sigma.est <- sqrt(sigma2.est)
-```
-
-```{r question-2a-supplementary, include=FALSE}
-# ## For now, ignore this chunk
-# 
-# ## Posterior marginal distribution
-# plot(y = spain.fit$marginals.fixed$`(Intercept)`[,2],
-#      x = spain.fit$marginals.fixed$`(Intercept)`[,1],
-#      type="l", xlab="Intercept",ylab="Posterior density")
-# 
-# ## 
-# # function to extract the marginal densities and make a data frame to plot
-# extract_marginals_to_plot <- function(marg) {
-# posterior_densities <- data.frame()
-# for (i in 1:length(marg)) {
-# tmp <- data.frame(marg[[i]])
-# tmp$Region <- i
-# posterior_densities <- rbind(posterior_densities,tmp)
-# }
-# return(posterior_densities)
-# }
-# 
-# marginal_of_interest <- scotland.fit1$marginals.fitted.values
-# post_dens <- extract_marginals_to_plot(marginal_of_interest)
-# # we use the ggridges package to plot the marginals for first 28 Regions
-# ggplot(data = post_dens[post_dens$Region <= 10,],
-# aes(x = x, y = Region, height = y, group = Region, fill = ..x..)) +
-#   geom_density_ridges_gradient(stat = "identity", alpha = 0.5) +
-# scale_fill_viridis_c(option = "C") + xlab("Posterior marginal density") +
-# xlim(0,7) +
-# theme(legend.position = 'none')
-# 
-# # we use the ggridges package to plot the marginals for last 10 Regions
-# ggplot(data = post_dens[post_dens$Region > 46,],
-# aes(x = x, y = Region, height = y, group = Region, fill = ..x..)) +
-# geom_density_ridges_gradient(stat = "identity", alpha = 0.5) +
-# scale_fill_viridis_c(option = "C") + xlab("Posterior marginal density") +
-# xlim(0,7) +
-# theme(legend.position = 'none')
+## (Intercept)  -0.13   0.016   -0.17       -0.13     -0.1
+sigma.est <- sqrt(1/spain.fit$summary.hyperpar)[4]
+##                    mean    sd      0.025quant  0.5quant  0.97quant
+## sqrt(1/Precision)  0.25    0.73    0.28        0.25      0.23
 
 ```
+
+We fit a Poisson-lognormal model of lung cancer mortality among these men, that smooths risk estimates toward a global value, $exp( \beta_0 )$. We estimate $\beta_0$ to be -0.13 (95% interval: -0.17 to -0.1). A hyper-parameter that characterizes the extent of smoothing, $\sigma_e$, is estimated to be 0.25 (95% interval: 0.23-0.28).
 
 (b) Extract the posterior medians of the relative risk (RR) estimates and provide a map of these.
 
-```{r question-2b}
+See Figure 4.
+
+```{r question-2b, fig.asp=1, fig.cap="Posterior medians of relative risk estimates. Estimates are generated from a Poisson-Lognormal model with nonspatial smoothing."}
 # Extract posterior medians of relative risk (RR) estimates
 spain.ad1$fit1RR <- spain.fit$summary.fitted.values[,4]
 
-# Map median RR estimates from Poisson-lognormal spatial model
-mapPlot(data = spain.ad1, variables = "fit1RR", values = "fit1RR", 
-        geo = geo, by.data = "Region", by.geo = "CODMUNI")
+# Map median RR estimates from Poisson-lognormal smooth model
+mapPlot(data = spain.ad1, geo = geo, 
+        variables = "fit1RR", values = "fit1RR", 
+        by.data = "Region", by.geo = "CODMUNI",
+        size = 0.01, labels = "Relative risk of lung cancer mortality",
+        direction = -1)
 
 ```
 
 (c) Plot these posterior RR estimates against the SMRs, and comment.
 
-```{r question-2c, fig.asp=1, fig.cap = "Standardized mortality rate versus relative risk estimate from a posterior Poisson-Lognormal spatial model."}
+```{r question-2c, fig.asp=1, fig.cap = "Standardized mortality rates versus posterior median relative risks. Relative risk estimates are generated from a Poisson-Lognormal model with nonspatial smoothing."}
 # Plot SMR versus RR
-plot(y = spain.ad1$SMR, x = spain.ad1$fit1RR,
-     ylab = "Standardized mortality rate",
-     xlab = "Relative risk estimate")
+plot(x = spain.ad1$SMR, y = spain.ad1$fit1RR,
+     xlab = "Standardized mortality rate (SMR)",
+     ylab = "Relative risk (RR)")
 lines(0:10, 0:10, col = "red")
 
 ```
 
+See Figure 5. SMR and RR estimates are generally drawn to be equivalent, both focused about $exp( \beta_0 ) \approx 0.88$.
+
 (d) Plot the posterior standard deviations of the RRs against the standard errors of the SMRs and comment.
 
-```{r question-2d, fig.asp=1, fig.cap = "Standard error of SMR versus standard deviation of RR."}
+```{r question-2d, fig.asp=1, fig.cap = "Standard error of standardized mortality rates versus posterior standard deviation of smoothed relative risks."}
 # Extract posterior standard deviations of RR estimates
 spain.ad1$fit1RR.sd <- spain.fit$summary.fitted.values[,2]
 
 # Plot se(SMR) versus sd(RR)
-plot(y = spain.ad1$SMR.se, x = spain.ad1$fit1RR.sd,
-     ylab = "SMR standard error",
-     xlab = "RR standard deviation")
+plot(x = spain.ad1$SMR.se, y = spain.ad1$fit1RR.sd,
+     xlab = "Standard error of SMR",
+     ylab = "Standard deviation of RR")
 lines(0:10, 0:10, col = "red")
 
 ```
 
-3. In this question we will smooth the SMRs using the disease mapping Poisson-LognormalSpatial model:
+See Figure 6. Regions whose SMR have large standard errors have posterior RR standard deviations that are comparatively much smaller. This illustrates the instability of SMR estimates.
 
-...
+3. In this question we will smooth the SMRs using the disease mapping Poisson-Lognormal spatial model:
 
-(a) Using the `inla` function in R fit this model using the BYM2 model, with the default prior for $\beta_0$ and the following prior specification for the spatial and non-spatial random effects (note that you must be in the directory that contains the VR.graph file):
+  $Y_i | \beta_i, \epsilon_i \sim_{iid} Poisson(E_i e^{\beta_0} e^{S_i + \epsilon_i})$
 
-`f(Region, model="bym2", graph="VR.graph", scale.model=T, constr=T, hyper=list(phi=list(prior="pc", param=c(0.5, 0.5), initial=1), prec=list(prior="pc.prec", param=c(0.3,0.01), initial=5)))`
+  $e_i | \sigma_\epsilon \sim_{iid} N(0, \sigma^2_\epsilon)$
 
-These choices correspond to the prior belief that there is a 1% chance that the total residual standard deviation is greater than 0.3, and a 50% chance that the proportion of the variance that is spatial is bigger than 0.5.  
-
-Report both the posterior medians and 95% intervals for $\beta_0$, the total variance of the random effects, and the proportion of the total variance attributed to the spatial random effect.
+  $S_1,...,S_n | \sigma_s^2 \sim ICAR(\sigma_s^2)$
+  
+for $i$, $i = 1,...,n$.
+  
+(a) Using the `inla` function in R fit this model using the `bym2` model, with the default prior for $\beta_0$ and the provided prior specification for the spatial and non-spatial random effects. These correspond to the prior belief that there is a 1% chance that the total residual standard deviation is greater than 0.3, and a 50% chance that the proportion of the variance that is spatial is bigger than 0.5. Report both the posterior medians and 95% intervals for $\beta_0$, the total variance of the random effects, and the proportion of the total variance attributed to the spatial random effect.
 
 ```{r question-3a}
 ####################
@@ -226,7 +192,7 @@ Report both the posterior medians and 95% intervals for $\beta_0$, the total var
 # Create a new RegionIndex to match VR.graph
 spain.ad1$RegionIndex <- 1:nrow(spain.ad1)
 
-# Specify priors of BYM model
+# Specify priors of BYM2 model
 formula <- Count ~ 1 + 
   f(RegionIndex, model="bym2", graph="../data/VR.graph", scale.model=T, constr=T,
     hyper=list(phi=list(prior="pc", param=c(0.5, 0.5), initial=1), 
@@ -235,30 +201,53 @@ formula <- Count ~ 1 +
 # Fit Poisson-lognormal BYM2 model in INLA
 spain.fit2 <- inla(formula, data=spain.ad1, family="poisson", E=Expected)
 
-
+# Get parameter estimates
 beta0.est <- spain.fit2$summary.fixed[4]
 ##              mean    sd      0.025quant  0.5quant  0.97quant
-## Beta_0       -0.13   0.016   -0.17       -0.13     -0.1
-sigma2.est <- 1 / spain.fit2$summary.hyperpar[4]
-##              mean    sd      0.025quant  0.5quant  0.97quant
-## 1/Precision  0.063   0.54    0.08        0.064     0.051
-sigma.est <- sqrt(sigma2.est)
+## (Intercept)  -0.15   0.013   -0.18       -0.15     -0.13
+sigma2.est <- sqrt(1 / spain.fit2$summary.hyperpar)[4]
+##                    mean    sd      0.025quant  0.5quant  0.97quant
+## sqrt(1/Precision)  0.063   0.54    0.08        0.064     0.051
+
 ```
+
+We fit a Poisson-lognormal spatial model of lung cancer mortality among these men, that smooths risk estimates toward a global value, $exp( \beta_0 )$, and toward values of its neighbors. We estimate $\beta_0$ to be -0.15 (95% interval: -0.18 to -0.13). We estimate the total variance of the random effects to be  1.03 (95% interval: 1.00-1.10) and the proportion of the total variance attributed to the spatial random effect to be 0.26 (95% interval: 0.22-0.29). 
 
 (b) Extract the relative risk estimates and provide a map of these. Compare these estimates with the SMRs and with those obtained from the Poisson-Lognormal model (i.e., the model with IID random effects only) that you fit in Question 2.
 
-4. Bonus Question: Suppose that instead of having available the counts and expected numbers we have access to the relative risks and their standard errors. Take the data as 
+See Figure 7. All estimates are centered around 87%, with the SMR estimates having the largest spread. Relative risks generated with spatial smoothing have a slightly higher distribution than those generated with nonspatial smoothing. Visually, it is clear that estimates from the final model have undergone spatial smoothing.
 
-and fit the model
+```{r question-3b, fig.asp=1, fig.cap="Estimated risk of lung cancer mortality among men near Valencia, Spain, 1991-2000. Relative risk estimates are generated from Poisson-Lognormal models."}
+# Extract posterior medians of relative risk (RR) estimates
+spain.ad1$fit2RR <- spain.fit2$summary.fitted.values[,4]
 
+# Summarize distributions of SMR and RR's
+spain.ad1[,c(4,6,9)] %>% colMeans
+spain.ad1[,c(4,6,9)] %>% lapply(quantile)
+spain.ad1[,c(4,6,9)] %>% lapply(IQR)
+
+# Map median RR estimates from Poisson-Lognormal spatial and nonspatial model
+mapPlot(data = spain.ad1, geo = geo, 
+        variables = c("SMR", "fit1RR", "fit2RR"), 
+        values = c("SMR", "fit1RR", "fit2RR"), 
+        by.data = "Region", by.geo = "CODMUNI",
+        size = 0.01, direction = -1,
+        labels = c("SMR", "Smoothed RR", "Spatially smoothed RR"))
+
+```
+
+4. Bonus Question: Suppose that instead of having available the counts and expected numbers we have access to the relative risks and their standard errors.
 Fit this model using `inla` and plot the estimated relative risks from this model against the estimates from the Poisson-Lognormal model, and comment.
 
-```{r question-4}
+```{r question-4, fig.asp=1, fig.cap="Estimated risk of lung cancer mortality among men near Valencia, Spain, 1991-2000. Relative risk estimates are generated from Poisson-Lognormal models."}
 ####################
 #### QUESTION 4 ####
 ####################
 
+
 ```
+
+Intentionally left blank.
 
 **End of report. Code appendix begins on the next page.**
 
