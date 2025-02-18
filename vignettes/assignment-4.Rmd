@@ -1,0 +1,122 @@
+---
+title: "CSSS 554: Homework 4"
+subtitle: "Department of Biostatistics @ University of Washington"
+author:
+- Alejandro Hernandez
+date: "Winter Quarter 2025"
+output: pdf_document
+---
+
+```{r setup, include=F}
+# Clear environment
+rm(list=ls())
+
+# Setup options
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE, results='hide')
+options(knitr.kable.NA = '-', digits = 2)
+options(survey.lonely.psu="adjust")
+labs = knitr::all_labels()
+labs = labs[!labs %in% c("setup", "allcode")]
+```
+
+```{r load}
+# Load relevant packages
+library(surveyPrev)
+library(haven) 
+library(geodata)
+library(sf)
+library(dplyr)
+
+# Load data locally
+indicator <- "unmet_family"
+year <- 2018
+country <- "Benin"
+
+## Load data locally
+file_path <- "../data/Benin20172018/BJBR71DT/BJBR71FL.DTA"  # data file
+dhsData <- as.data.frame(haven::read_dta(file_path))
+indicator <- "unmet_family"
+data <- surveyPrev::getDHSindicator(dhsData, indicator = indicator)
+head(data)  # View head
+
+# Handle missing data
+
+```
+
+```{r}
+# Get admin 1 info
+poly.adm1 <- geodata::gadm(country, level=1, path=tempdir())
+poly.adm1 <- sf::st_as_sf(poly.adm1)
+admin1.info <- surveyPrev::adminInfo(poly.adm=poly.adm1, admin=1, by.adm="NAME_1")
+head(admin1.info$data)  # View head
+
+# Get admin 2 info
+poly.adm2 <- gadm(country, level=2, path=tempdir())
+poly.adm2 <- sf::st_as_sf(poly.adm2)
+admin2.info <- adminInfo(poly.adm=poly.adm2, admin=2, by.adm="NAME_2", by.adm.upper="NAME_1")
+head(admin2.info$data)  # View head
+
+# Get geographic data locally
+sf_use_s2(FALSE)  # IDK why this works but it fixes an error
+file_path_geo <- "../data/Benin20172018/BJGE71FL/BJGE71FL.shp" # shapefile
+geo <- sf::st_read(file_path_geo)
+
+# Get cluster information at Admin 1 and 2
+cluster.info <- clusterInfo(geo, poly.adm1, poly.adm2)
+
+```
+
+
+```{r}
+## Plot direct estimates of Admin 1 prevalence
+res_ad1 <- surveyPrev::directEST(data, cluster.info, admin = 1)
+plot_ad1 <- res_ad1$res.admin1 %>%
+  select("Admin 1 Name"=admin1.name, "Direct Estimate"=direct.est, "Variance of Estimate"=direct.var) %>%
+  mutate("SE of Estimate" = sqrt(.$"Variance of Estimate"),
+         model = "Percentage of Women with Unmet Family Needs in Armenia")
+# Map direct estimates and uncertainty
+SUMMER::mapPlot(data = plot_ad1, geo = poly.adm1,
+              by.data = "Admin 1 Name", by.geo = "NAME_1", is.long = TRUE,
+              variable = "model", 
+              value = "Direct Estimate", 
+              legend.label = "Direct Estimate")
+SUMMER::mapPlot(data = plot_ad1, geo = poly.adm1,
+              by.data = "Admin 1 Name",  by.geo = "NAME_1", is.long = TRUE,
+              variable = "model", value = "SE of Estimate", 
+              legend.label = "SE of Estimate")
+
+```
+
+
+```{r}
+## Plot direct estimates of Admin 2 prevalence
+res_ad2 <- surveyPrev::directEST(data, cluster.info, admin = 2)
+plot_ad2 <- res_ad2$res.admin2 %>%
+  select("Admin 2 Name"=admin2.name, "Direct Estimate"=direct.est, "Variance of Estimate"=direct.var) %>%
+  mutate("SE of Estimate" = sqrt(.$"Variance of Estimate"),
+         model = "Percentage of Women with Unmet Family Needs in Armenia")
+# Map direct estimates and uncertainty
+SUMMER::mapPlot(data = plot_ad2, geo = poly.adm2,
+              by.data = "Admin 2 Name", by.geo = "NAME_2", is.long = TRUE,
+              variable = "model", 
+              value = "Direct Estimate", 
+              legend.label = "Direct Estimate")
+SUMMER::mapPlot(data = plot_ad2, geo = poly.adm2,
+              by.data = "Admin 2 Name",  by.geo = "NAME_2", is.long = TRUE,
+              variable = "model", value = "SE of Estimate", 
+              legend.label = "SE of Estimate")
+
+```
+
+
+
+**End of report. Code appendix begins on the next page.**
+
+\pagebreak
+
+## Code Appendix
+
+```{r allcode, ref.label = knitr::all_labels(), echo=TRUE, eval=FALSE}
+```
+
+**End of document.**

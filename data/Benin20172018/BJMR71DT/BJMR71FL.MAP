@@ -1,0 +1,3324 @@
+                                                   BJMR71FL                                                   
+                                                BJMR71FL_DICT                                                 
+
+                                        BJMR71FL.DCF                                                          
+                                    Last Modified:  3/28/2019  5:28:41 PM                                     
+
+--------------------------------------------------------------------------------------------------------------
+Level Name                    Level Label                                                  Type            Rec
+  Record Name                   Record Label                                              Value  Req  Max  Len
+--------------------------------------------------------------------------------------------------------------
+HOUSEHOLD                     HOUSEHOLD                                                                       
+  RECORD1                       RECORD1                                                          Yes    1  933
+Level: HOUSEHOLD                                       Record: RECORD1
+--------------------------------------------------------------------------------------------------------------
+                                                                                 Data Item            Dec Zero
+Item Name              Item Label                                     Start  Len Type Type  Occ  Dec Char Fill
+--------------------------------------------------------------------------------------------------------------
+MCASEID           (id) Case Identification                                1   15   AN    I    1    0   No   No
+                         (record type)                                    0    0   AN    I    1    0   No   No
+MV000                  Country code and phase                            16    3   AN    I    1    0   No   No
+MV001                  Cluster number                                    19    6    N    I    1    0   No   No
+MV002                  Household number                                  25    6    N    I    1    0   No   No
+MV003                  Respondent's line number                          31    3    N    I    1    0   No   No
+                               1:90  
+MV004                  Ultimate area unit                                34    4    N    I    1    0   No   No
+MV005                  Men's sample weight (6 decimals)                  38    8    N    I    1    0   No   No
+MV006                  Month of interview                                46    2    N    I    1    0   No   No
+                               1:12  
+MV007                  Year of interview                                 48    4    N    I    1    0   No   No
+                               2010:2018  
+MV008                  Date of interview (CMC)                           52    4    N    I    1    0   No   No
+                               1320:1420  
+MV008A                 Date of interview Century Day Code (CDC)          56    5    N    I    1    0   No   No
+MV009                  Month of birth                                    61    2    N    I    1    0   No   No
+                               1:12  
+                          (na)       Not applicable
+MV010                  Year of birth                                     63    4    N    I    1    0   No   No
+                               1950:2003  
+                          (na)            Not applicable
+MV011                  Date of birth (CMC)                               67    4    N    I    1    0   No   No
+                               600:1240  
+                          (na)           Not applicable
+MV012                  Current age                                       71    2    N    I    1    0   No   No
+                               15:64  
+                          (na)        Not applicable
+MV013                  Age in 5-year groups                              73    2    N    I    1    0   No   No
+                               1   15-19
+                               2   20-24
+                               3   25-29
+                               4   30-34
+                               5   35-39
+                               6   40-44
+                               7   45-49
+                               8   50-54
+                               9   55-59
+                               10  60-64
+                          (na)     Not applicable
+MV014                  Completeness of age information                   75    1    N    I    1    0   No   No
+                               1  Month and year - information complete
+                               2  Month and age - year imputed
+                               3  Year and age - month imputed
+                               4  Year and age - year ignored
+                               5  Year - age/month imputed
+                               6  Age - year/month imputed
+                               7  Month - age/year imputed
+                               8  None - all imputed
+                          (na)    Not applicable
+MV015                  Result of interview                               76    1    N    I    1    0   No   No
+                               1  Completed
+                               2  Not at home
+                               3  Postponed
+                               4  Refused
+                               5  Partly completed
+                               6  Incapacitated
+                               7  Other
+                           (m) 9  Missing
+MV016                  Day of interview                                  77    2    N    I    1    0   No   No
+                               1:31  
+MV021                  Primary sampling unit                             79    4    N    I    1    0   No   No
+MV022                  Sample stratum number                             83    4    N    I    1    0   No   No
+                               1   Alibori urban
+                               2   Alibori rural
+                               3   Atacora urban
+                               4   Atacora rural
+                               5   Atlantic urban
+                               6   Atlantic
+                               7   Borgou urban
+                               8   Borgou rural
+                               9   Collines urban
+                               10  Collines rural
+                               11  Couffo urban
+                               12  Couffo rural
+                               13  Donga urban
+                               14  Donga rural
+                               15  Littoral urban
+                               16  Littoral rural
+                               17  Mono urban
+                               18  Mono rural
+                               19  Ouémé urban
+                               20  Ouémé rural
+                               21  Plateau urban
+                               22  Plateau rural
+                               23  Zou urban
+                               24  Zou rural
+MV023                  Sample domain                                     87    2    N    I    1    0   No   No
+                               1   Alibori urban
+                               2   Alibori rural
+                               3   Atacora urban
+                               4   Atacora rural
+                               5   Atlantic urban
+                               6   Atlantic
+                               7   Borgou urban
+                               8   Borgou rural
+                               9   Collines urban
+                               10  Collines rural
+                               11  Couffo urban
+                               12  Couffo rural
+                               13  Donga urban
+                               14  Donga rural
+                               15  Littoral urban
+                               16  Littoral rural
+                               17  Mono urban
+                               18  Mono rural
+                               19  Ouémé urban
+                               20  Ouémé rural
+                               21  Plateau urban
+                               22  Plateau rural
+                               23  Zou urban
+                               24  Zou rural
+MV024                  Region                                            89    2    N    I    1    0   No   No
+                               1   ALIBORI
+                               2   ATACORA
+                               3   ATLANTIQUE
+                               4   BORGOU
+                               5   COLLINES
+                               6   COUFFO
+                               7   DONGA
+                               8   LITTORAL
+                               9   MONO
+                               10  OUÃ?MÃ?
+                               11  PLATEAU
+                               12  ZOU
+MV025                  Type of place of residence                        91    1    N    I    1    0   No   No
+                               1  Urban
+                               2  Rural
+MV026                  NA - De facto place of residence                  92    1    N    I    1    0   No   No
+                               0  Capital, large city
+                               1  Small city
+                               2  Town
+                               3  Countryside
+                           (m) 9  Missing
+MV027                  Number of visits                                  93    1    N    I    1    0   No   No
+                               1:8  
+                           (m) 9    Missing
+MV028                  Interviewer identification                        94    5    N    I    1    0   No   No
+MV029                  NA - Keyer identification                         99    2    N    I    1    0   No   No
+                               1:50  
+                           (m) 99    Missing
+MV030                  Field supervisor                                 101    5    N    I    1    0   No   No
+MV031                  Field editor                                     106    5    N    I    1    0   No   No
+MV032                  NA - Office editor                               111    2    N    I    1    0   No   No
+MV034                  Line number of wife/partner                      113    2    N    I    8    0   No   No
+                               0     Wife not in household
+                               1:90  
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV034A                 NA - Wife or partner***                          129    1    N    I    8    0   No   No
+                               1  Wife
+                               2  Partner
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV034B                 Age of wife/partner                              137    2    N    I    8    0   No   No
+                               5:90  
+                               95    95+
+                           (m) 99    Missing
+MV035                  Number of wives/partners                         153    1    N    I    1    0   No   No
+                               0    No wives/partners
+                               1:8  
+                           (m) 9    Missing
+                          (na)      Not applicable
+MV045A                 Language of questionnaire                        154    3    N    I    1    0   No   No
+                               1  FranÃ§ais
+                               2  Adja
+                               3  Bariba
+                               4  Fon
+                               5  Dendi
+                               6  Ditamari
+                               7  Yoruba
+                               8  Autre
+MV045B                 Language of interview                            157    3    N    I    1    0   No   No
+                               1  FranÃ§ais
+                               2  Adja
+                               3  Bariba
+                               4  Fon
+                               5  Dendi
+                               6  Ditamari
+                               7  Yoruba
+                               8  Autre
+MV045C                 Native language of respondent                    160    3    N    I    1    0   No   No
+                               1  FranÃ§ais
+                               2  Adja
+                               3  Bariba
+                               4  Fon
+                               5  Dendi
+                               6  Ditamari
+                               7  Yoruba
+                               8  Autre
+MV046                  Translator used                                  163    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+MV801                  Time interview started (hhmm - 24 hour clock)    164    4    N    I    1    0   No   No
+                               500:2330  
+                           (m) 9999      Missing
+                          (na)           Not applicable
+MV802                  Time interview ended (hhmm - 24 hour clock)      168    4    N    I    1    0   No   No
+                               500:2330  
+                           (m) 9999      Missing
+                          (na)           Not applicable
+MV803                  Length of interview in minutes                   172    2    N    I    1    0   No   No
+                               0:94  
+                               95    95+
+                               96    2+ visits
+                               97    Inconsistent
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV101                  Region                                           174    2    N    I    1    0   No   No
+                               1   ALIBORI
+                               2   ATACORA
+                               3   ATLANTIQUE
+                               4   BORGOU
+                               5   COLLINES
+                               6   COUFFO
+                               7   DONGA
+                               8   LITTORAL
+                               9   MONO
+                               10  OUÃ?MÃ?
+                               11  PLATEAU
+                               12  ZOU
+MV102                  Type of place of residence                       176    1    N    I    1    0   No   No
+                               1  Urban
+                               2  Rural
+MV103                  NA - Childhood place of residence***             177    1    N    I    1    0   No   No
+                               0  Capital, large city
+                               1  City
+                               2  Town
+                               3  Countryside
+                               4  Abroad
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV104                  Years lived in place of residence                178    2    N    I    1    0   No   No
+                               0:90  
+                               95    Always
+                               96    Visitor
+                               97    Inconsistent
+                               98    Don't know
+                           (m) 99    Missing
+MV105                  Type of place of previous residence              180    1    N    I    1    0   No   No
+                               0  Capital, large city
+                               1  City
+                               2  Town
+                               3  Countryside
+                               4  Abroad
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV105A                 Region of previous residence                     181    2    N    I    1    0   No   No
+                               1   ALIBORI
+                               2   ATACORA
+                               3   ATLANTIQUE
+                               4   BORGOU
+                               5   COLLINES
+                               6   COUFFO
+                               7   DONGA
+                               8   LITTORAL
+                               9   MONO
+                               10  OUÃ?MÃ?
+                               11  PLATEAU
+                               12  ZOU
+                               96  Abroad
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV106                  Educational level                                183    1    N    I    1    0   No   No
+                               0  No education
+                               1  Primary
+                               2  Secondary
+                               3  Higher
+                           (m) 9  Missing
+MV107                  Highest year of education (at level in MV106)    184    2    N    I    1    0   No   No
+                               0     No years completed at level MV106
+                               1:15  
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV130                  Religion                                         186    2    N    I    1    0   No   No
+                               1   Vodoun
+                               2   Autre traditionnelles
+                               3   Islam
+                               4   Catholique
+                               5   Protestante Methodiste
+                               6   Autres Protestants
+                               7   Celestes
+                               8   Autres chretiens
+                               9   Autres religions
+                               10  Aucune
+                               96  Autre
+                           (m) 99  Manquant
+MV131                  Ethnicity                                        188    3    N    I    1    0   No   No
+                               1    Adja and related
+                               2    Bariba and related..
+                               3    Dendi and related..
+                               4    Fon and related..
+                               5    Yoa, Lokpa and related.
+                               6    Betamaribe and related
+                               7    Peulh and related
+                               8    Yoruba and related..
+                               96   Other Beninois
+                               97   Other nationalities
+                           (m) 999  Missing
+MV133                  Total number of years of education               191    2    N    I    1    0   No   No
+                               0:25  
+                               97    Inconsistent
+                           (m) 99    Missing
+MV134                  NA - De facto place of residence                 193    1    N    I    1    0   No   No
+                               0  Capital, large city
+                               1  Small city
+                               2  Town
+                               3  Countryside
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV135                  Usual resident or visitor                        194    1    N    I    1    0   No   No
+                               1  Usual resident
+                               2  Visitor
+                           (m) 9  Missing
+MV136                  Number of household members (total listed)       195    2    N    I    1    0   No   No
+                               1:90  
+MV138                  Number of eligible men in household (de facto)   197    2    N    I    1    0   No   No
+                               1:20  
+MV149                  Educational attainment                           199    1    N    I    1    0   No   No
+                               0  No education
+                               1  Incomplete primary
+                               2  Complete primary
+                               3  Incomplete secondary
+                               4  Complete secondary
+                               5  Higher
+                           (m) 9  Missing
+MV150                  Relationship to household head                   200    2    N    I    1    0   No   No
+                               1   Head
+                               2   Husband
+                               3   Son
+                               4   Son-in-law
+                               5   Grandson
+                               6   Father
+                               7   Father-in-law
+                               8   Brother
+                               10  Other relative
+                               11  Adopted/foster child
+                               12  Not related
+                               13  Niece/nephew by blood
+                               14  Niece/nephew by marriage
+                               15  Other wife
+                               98  Don't know
+                           (m) 99  Missing
+MV151                  Sex of household head                            202    1    N    I    1    0   No   No
+                               1  Male
+                               2  Female
+MV152                  Age of household head                            203    2    N    I    1    0   No   No
+                               0:96  
+                               97    97+
+                               98    Don't know
+                           (m) 99    Missing
+MV155                  Literacy                                         205    1    N    I    1    0   No   No
+                               0  Cannot read at all
+                               1  Able to read only parts of sentence
+                               2  Able to read whole sentence
+                               3  No card with required language
+                               4  Blind/visually impaired
+                           (m) 9  Missing
+MV156                  NA - Ever participated in a literacy program (e  206    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV157                  Frequency of reading newspaper or magazine       207    1    N    I    1    0   No   No
+                               0  Not at all
+                               1  Less than once a week
+                               2  At least once a week
+                               3  Almost every day
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV158                  Frequency of listening to radio                  208    1    N    I    1    0   No   No
+                               0  Not at all
+                               1  Less than once a week
+                               2  At least once a week
+                               3  Almost every day
+                           (m) 9  Missing
+MV159                  Frequency of watching television                 209    1    N    I    1    0   No   No
+                               0  Not at all
+                               1  Less than once a week
+                               2  At least once a week
+                               3  Almost every day
+                           (m) 9  Missing
+MV167                  NA - Times away from home in last 12 months      210    2    N    I    1    0   No   No
+                               0     None
+                               1:89  
+                               90    90+
+                               97    Inconsistent
+                               98    Don't know
+                           (m) 99    Missing
+MV168                  NA - Away for more than one month in last 12 mo  212    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV169A                 Owns a mobile telephone                          213    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV169B                 Use mobile telephone for financial transactions  214    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV170                  Has an account in a bank or other financial ins  215    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV171A                 Use of internet                                  216    1    N    I    1    0   No   No
+                               0  Never
+                               1  Yes, last 12 months
+                               2  Yes, before last 12 months
+                               3  Yes, can't establish when
+                           (m) 9  Missing
+MV171B                 Frequency of using internet last month           217    1    N    I    1    0   No   No
+                               0  Not at all
+                               1  Less than once a week
+                               2  At least once a week
+                               3  Almost every day
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV190                  Wealth index combined                            218    1    N    I    1    0   No   No
+                               1  Poorest
+                               2  Poorer
+                               3  Middle
+                               4  Richer
+                               5  Richest
+                          (na)    Not Applicable
+MV191                  Wealth index factor score combined (5 decimals)  219    8    N    I    1    0   No   No
+                          (na)           Not Applicable
+MV190A                 Wealth index for urban/rural                     227    1    N    I    1    0   No   No
+                               1  Poorest
+                               2  Poorer
+                               3  Middle
+                               4  Richer
+                               5  Richest
+                          (na)    Not Applicable
+MV191A                 Wealth index factor score for urban/rural (5 de  228    8    N    I    1    0   No   No
+                          (na)           Not Applicable
+MV201                  Total children ever born                         236    2    N    I    1    0   No   No
+                               0:50  
+MV202                  Sons at home                                     238    2    N    I    1    0   No   No
+                               0:40  
+MV203                  Daughters at home                                240    2    N    I    1    0   No   No
+                               0:40  
+MV204                  Sons elsewhere                                   242    2    N    I    1    0   No   No
+                               0:40  
+MV205                  Daughters elsewhere                              244    2    N    I    1    0   No   No
+                               0:40  
+MV206                  Sons who have died                               246    2    N    I    1    0   No   No
+                               0:20  
+MV207                  Daughters who have died                          248    2    N    I    1    0   No   No
+                               0:20  
+MV212                  Age of respondent at 1st birth                   250    2    N    I    1    0   No   No
+                               10:64  
+                           (m) 99     Missing
+                          (na)        Not applicable
+MV213                  Partner currently pregnant                       252    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Unsure
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV217                  Knowledge of ovulatory cycle                     253    1    N    I    1    0   No   No
+                               1  During her period
+                               2  After period ended
+                               3  Middle of the cycle
+                               4  Before period begins
+                               5  At any time
+                               6  Other
+                               8  Don't know
+                           (m) 9  Missing
+MV218                  Number of living children                        254    2    N    I    1    0   No   No
+                               0:40  
+MV225                  NA - Most recent pregnancy wanted                256    1    N    I    1    0   No   No
+                               1  Then
+                               2  Later
+                               3  Not at all
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV245                  Number of women fathered children with           257    2    N    I    1    0   No   No
+                               0:20  
+                               95    More than one woman, but unknown number
+                           (m) 99    Missing
+MV246                  NA - Married to mother when first child was bor  259    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV247                  Age of most recent child                         260    2    N    I    1    0   No   No
+                               0:41  
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV248                  Antenatal check-ups for the mother of most rece  262    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV249                  Respondent present during check-ups for most re  263    1    N    I    1    0   No   No
+                               0  Not present
+                               1  Present
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV250                  Place of birth of most recent child              264    1    N    I    1    0   No   No
+                               1  Hospital, health facility
+                               2  Other
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV251                  NA - Reason for not delivering most recent chil  265    2    N    I    1    0   No   No
+                               1   Cost too much
+                               2   Facility closed
+                               3   Too far/no transportation
+                               4   Don't trust facility/poor quality service
+                               5   No female provider
+                               6   Not the first child
+                               7   Mother did not think it necessary
+                               8   Respondent did not think it necessary
+                               9   Family did not think it necessary
+                               96  Other
+                               98  Don't know
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV252                  Amount a child should drink, when that child ha  267    1    N    I    1    0   No   No
+                               0  Nothing to drink
+                               2  Less than usual/much less
+                               3  Somewhat less
+                               4  About the same
+                               5  More
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV301                  Knowledge of any contraceptive method            268    1    N    I    1    0   No   No
+                               0  Knows no method
+                               1  Knows only folkloric method
+                               2  Knows only traditional method
+                               3  Knows modern method
+MV302                  NA - Ever use of any contraceptive method        269    1    N    I    1    0   No   No
+                               0  Never used
+                               1  Used only folkloric method
+                               2  Used only traditional method
+                               3  Used modern method
+                          (na)    Not applicable
+M304A                  Type of contraceptive method                     270    1    N    I   20    0   No   No
+                               1  Modern method
+                               2  Traditional method
+                               3  Folkloric method
+MV304                  Knows contraceptive method                       290    1    N    I   20    0   No   No
+                               0  No
+                               1  Yes
+                               7  Not in contraception table, but as a current method
+                               8  Not asked
+                           (m) 9  Missing
+MV305                  NA - Ever used contraceptive method              310    1    N    I   20    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV307                  Contraceptive method currently used              330    1    N    I   20    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV312                  Current contraceptive method                     350    2    N    I    1    0   No   No
+                               0   Not using
+                               1   Pill
+                               2   IUD
+                               3   Injections
+                               4   Diaphragm
+                               5   Male condom
+                               6   Female sterilization
+                               7   Male sterilization
+                               8   Periodic abstinence
+                               9   Withdrawal
+                               10  Other traditional
+                               11  Implants/Norplant
+                               12  Prolonged abstinence
+                               13  Lactational amenorrhea (LAM)
+                               14  Female condom
+                               15  Foam or jelly
+                               16  Emergency contraception
+                               17  Other modern method
+                               18  Standard days method (SDM)
+                               19  Specific method 1
+                               20  Specific method 2
+                           (m) 99  Missing
+MV313                  Current contraceptive by method type             352    1    N    I    1    0   No   No
+                               0  No method
+                               1  Folkloric method
+                               2  Traditional method
+                               3  Modern method
+                               8  Don't know
+                           (m) 9  Missing
+MV323A                 NA - Brand of condom used                        353    2    N    I    1    0   No   No
+                               96  Other
+                               98  Don't know
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV325B                 NA - Cost of condoms (in CURRENCY) last time ob  355    7    N    I    1    0   No   No
+                               1:2000   
+                               9999995  Free
+                               9999998  Don't know
+                           (m) 9999999  Missing
+                          (na)          Not applicable
+MV372A                 NA - Interviewer shown condom package            362    1    N    I    1    0   No   No
+                               0  Package not seen
+                               1  Package seen
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV384A                 On radio heard about Family Planning in the las  363    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV384B                 On TV saw about Family Planning in the last few  364    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV384C                 In newspaper read about Family Planning in the   365    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV384D                 Heard family planning by text messages on mobil  366    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV395                  Discussed Family Planning with health worker in  367    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               2  Depends
+                               8  Don't know
+                           (m) 9  Missing
+MV396                  NA - Possible for a breastfeeding woman to get   368    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               2  Depends
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV396A                 Can women get pregnant after birth of a child b  369    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV3A00Y                Source of family planning for non-users: no sou  370    1    N    I    1    0   No   No
+                               0  No: knows a source
+                               1  Yes: knows no source
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV3A00Z                Source of family planning for non-users: any so  371    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV3A09B                NA - Number of condoms did get last time         372    3    N    I    1    0   No   No
+                               1:300  
+                               998    Don't know
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV3B17                 Source of condoms                                375    2    N    I    1    0   No   No
+                               10  PUBLIC SECTOR
+                               11  Government hospital
+                               12  Government health centre
+                               13  Mobile clinic
+                               14  Health/Community worker
+                               16  Other public sector
+                               20  PRIVATE SECTOR
+                               21  Private hospital, clinic
+                               22  Pharmacy
+                               23  Private doctor
+                               24  Mobile clinic
+                               25  Teligious hospital/centre
+                               26  Other private sector
+                               30  NGO
+                               31  Family planning clinic
+                               40  OTHER
+                               41  Shop
+                               42  Religious institution
+                               43  Friends/Parents
+                               96  Other
+                               98  Don't know
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV3B25A                Contraception is woman's business, man should n  377    1    N    I    1    0   No   No
+                               0  Disagree
+                               1  Agree
+                               8  Don't know
+                           (m) 9  Missing
+MV3B25B                Women who use contraception become promiscuous   378    1    N    I    1    0   No   No
+                               0  Disagree
+                               1  Agree
+                               8  Don't know
+                           (m) 9  Missing
+MV463A                 NA - Smokes cigarettes                           379    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463B                 NA - Smokes pipe                                 380    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463C                 NA - Uses chewing tobacco                        381    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463D                 NA - Uses snuff                                  382    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463E                 NA - Smokes CS                                   383    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463F                 NA - Smokes CS                                   384    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463G                 NA - Smokes CS                                   385    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463X                 NA - Smokes other                                386    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463Z                 NA - Smokes nothing                              387    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes, smokes nothing
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463AA                Frequency currently smokes tobacco               388    1    N    I    1    0   No   No
+                               0  Do not smokes
+                               1  Every day
+                               2  Some days
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463AB                Frequency currently uses smokeless tobacco       389    1    N    I    1    0   No   No
+                               0  Do not smoke
+                               1  Every day
+                               2  Some days
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463AC                In the past smoked tobacco every day             390    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV463AD                Frequency in the past smoked tobacco             391    1    N    I    1    0   No   No
+                               0  Do not smokes
+                               1  Every day
+                               2  Some days
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV464                  NA - Number of cigarettes in last 24 hours       392    2    N    I    1    0   No   No
+                               0:95  
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV464A                 On average respondent smokes daily: manufacture  394    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464B                 On average respondent smokes daily: hand roll c  397    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464C                 NA - On average respondent smokes daily: kretek  400    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464D                 On average respondent smokes daily: pipes full   403    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464E                 On average respondent smokes daily: cigars, che  406    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464F                 On average respondent smokes daily: water pipe   409    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464G                 On average respondent smokes daily: others       412    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464H                 On average respondent uses daily: snuff by mout  415    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464I                 On average respondent uses daily: snuff by nose  418    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464J                 On average respondent uses daily: chewing tobac  421    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464K                 On average respondent uses daily: betel quid wi  424    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV464L                 On average respondent uses daily: any others     427    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV474                  NA - Heard of tuberculosis or TB                 430    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474A                 NA - Tuberculosis spread by: air through coughi  431    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474B                 NA - Tuberculosis spread by: sharing utensils    432    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474C                 NA - Tuberculosis spread by: touching a person   433    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474D                 NA - Tuberculosis spread by: food                434    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474E                 NA - Tuberculosis spread by: sexual contact      435    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474F                 NA - Tuberculosis spread by: mosquito bites      436    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474G                 NA - Tuberculosis spread by: CS                  437    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474H                 NA - Tuberculosis spread by: CS                  438    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474I                 NA - Tuberculosis spread by: CS                  439    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474J                 NA - Tuberculosis spread by: CS                  440    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474X                 NA - Tuberculosis spread by: other               441    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV474Z                 NA - Don't know how tuberculosis is spread       442    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV475                  NA - Tuberculosis can be cured                   443    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV476                  NA - Would want tuberculosis infection in famil  444    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes, remain a secret
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV477                  Number of injections in last 12 months           445    2    N    I    1    0   No   No
+                               0     None
+                               1:89  
+                               90    90+
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV478                  Number of injections administered by a health w  447    2    N    I    1    0   No   No
+                               0     None
+                               1:89  
+                               90    90+
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV479                  NA - Place where given injection by health work  449    2    N    I    1    0   No   No
+                               10     PUBLIC SECTOR
+                               11:19  [ list public sector locations here ]
+                               20     PRIVATE SECTOR
+                               21:29  [ list private sector locations here ]
+                               30     OTHER
+                               31:35  [ list other locations here ]
+                               96     Other
+                           (m) 99     Missing
+                          (na)        Not applicable
+MV480                  Syringe and needle from new, unopened package    451    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481                  Covered by health insurance                      452    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481A                 Health insurance type: mutual/community organiz  453    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481B                 Health insurance type: provided by employer      454    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481C                 Health insurance type: social security           455    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481D                 Health insurance type: private/commercially pur  456    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481E                 NA - Health insurance type: CS                   457    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481F                 NA - Health insurance type: CS                   458    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481G                 NA - Health insurance type: CS                   459    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481H                 NA - Health insurance type: CS                   460    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV481X                 Health insurance type: other                     461    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV482A                 NA - Arrange care of biological children under   462    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Unsure
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV482B                 NA - Primary caregiver of children under age 18  463    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV482C                 NA - Arrange care of non-biological children <   464    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Unsure
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV483                  Respondent circumcised                           465    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV483A                 Age at circumcision                              466    2    N    I    1    0   No   No
+                               0:49  
+                               95    During childhood <5 years
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV483B                 Who performed the circumcision                   468    2    N    I    1    0   No   No
+                               1   Traditional practitioner / family friend
+                               2   Health worker / professional
+                               96  Other
+                               98  Don't know
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV483C                 Place where circumcision was done                470    2    N    I    1    0   No   No
+                               1   Health facility
+                               2   Home of a health worker / professional
+                               3   Circumcision done at home
+                               4   Ritual site
+                               96  Other home / place
+                               98  Don't know
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV484A                 On average respondent smokes weekly: manufactur  472    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484B                 On average respondent smokes weekly: hand roll   475    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484C                 NA - On average respondent smokes weekly: krete  478    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484D                 On average respondent smokes weekly: pipes full  481    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484E                 On average respondent smokes weekly: cigars, ch  484    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484F                 On average respondent smokes weekly: water pipe  487    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484G                 On average respondent smokes weekly: others      490    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484H                 On average respondent uses weekly: snuff by mou  493    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484I                 On average respondent uses weekly: snuff by nos  496    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484J                 On average respondent uses weekly: chewing toba  499    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484K                 On average respondent uses weekly: betel quid w  502    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV484L                 On average respondent uses weekly: any others    505    3    N    I    1    0   No   No
+                               0      Product not used
+                               1:300  
+                               888    Not every day
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV501                  Current marital status                           508    1    N    I    1    0   No   No
+                               0  Never in union
+                               1  Married
+                               2  Living with partner
+                               3  Widowed
+                               4  Divorced
+                               5  No longer living together/separated
+                           (m) 9  Missing
+MV502                  Currently/formerly/never in union                509    1    N    I    1    0   No   No
+                               0  Never in union
+                               1  Currently in union/living with a woman
+                               2  Formerly in union/living with a woman
+                           (m) 9  Missing
+MV503                  Number of unions                                 510    1    N    I    1    0   No   No
+                               1  Once
+                               2  More than once
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV504                  Currently residing with wife/partner             511    1    N    I    1    0   No   No
+                               1  Living with him
+                               2  Staying elsewhere
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV505                  Number of wives/partners                         512    2    N    I    1    0   No   No
+                               0:20  
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV507                  Month of first cohabitation                      514    2    N    I    1    0   No   No
+                               1:12  
+                          (na)       Not applicable
+MV508                  Year of first cohabitation                       516    4    N    I    1    0   No   No
+                               1950:2018  
+                          (na)            Not applicable
+MV509                  Date of first cohabitation (CMC)                 520    4    N    I    1    0   No   No
+                               600:1420  
+                          (na)           Not applicable
+MV510                  Completeness of date information in MV509        524    1    N    I    1    0   No   No
+                               1  Month and year - information complete
+                               2  Month and age - year imputed
+                               3  Year and age - month imputed
+                               5  Year - age/month imputed
+                               6  Age - year/month imputed
+                               7  Month - age/year imputed
+                               8  None - all imputed
+                          (na)    Not applicable
+MV511                  Age at first cohabitation                        525    2    N    I    1    0   No   No
+                               10:64  
+                          (na)        Not applicable
+MV512                  Years since first cohabitation                   527    2    N    I    1    0   No   No
+                               0:54  
+                          (na)       Not applicable
+MV513                  Cohabitation duration (grouped)                  529    1    N    I    1    0   No   No
+                               0  Never married
+                               1  0-4
+                               2  5-9
+                               3  10-14
+                               4  15-19
+                               5  20-24
+                               6  25-29
+                               7  30+
+MV525                  Age at first sex                                 530    2    N    I    1    0   No   No
+                               0     Not had sex
+                               7:49  
+                               96    At first union
+                               97    Inconsistent
+                               98    Don't know
+                           (m) 99    Missing
+MV527                  Time since last sex                              532    3    N    I    1    0   No   No
+                               100      <1 day ago
+                               101      Days: 1
+                               102:198  
+                               199      Days: number missing
+                               201      Weeks: 1
+                               202:298  
+                               299      Weeks: number missing
+                               301      Months: 1
+                               302:398  
+                               399      Months: number missing
+                               401      Years: 1
+                               402:498  
+                               499      Years: number missing
+                               995      Within last 4 weeks
+                               996      Before last birth
+                               997      Inconsistent
+                               998      Don't know
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV528                  Time since last sex (in days)                    535    2    N    I    1    0   No   No
+                               0:30  
+                               31    31+ days
+                               95    Within last 4 weeks
+                               96    Before last birth
+                               97    Inconsistent
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV529                  Time since last sex (in months)                  537    3    N    I    1    0   No   No
+                               0:600  
+                               995    Within last 4 weeks
+                               996    Before last birth
+                               997    Inconsistent
+                               998    Don't know
+                           (m) 999    Missing
+                          (na)        Not applicable
+MV531                  Age at first sex (imputed)                       540    2    N    I    1    0   No   No
+                               0     Not had sex
+                               7:64  
+                               97    Inconsistent
+                               98    Don't know
+                           (m) 99    Missing
+MV532                  Flag for MV531                                   542    1    N    I    1    0   No   No
+                               0  No flag
+                               1  After interview
+                               2  After conception >= 1 year
+                               3  After conception < 1 year
+                               4  At marriage, but never married
+                               5  At marriage, but after conception
+                               6  After marriage
+                          (na)    Not applicable
+MV535                  Ever been married or in union                    543    1    N    I    1    0   No   No
+                               0  No
+                               1  Formerly married
+                               2  Formerly lived with a woman
+                               3  Both, formerly married and lived with a woman
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV536                  Recent sexual activity                           544    1    N    I    1    0   No   No
+                               0  Never had sex
+                               1  Active in last 4 weeks
+                               3  Not active in last 4 weeks
+                           (m) 9  Missing
+MV541                  NA - Intends to wait until marriage to have sex  545    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV602                  Fertility preference                             546    1    N    I    1    0   No   No
+                               1  Have another
+                               2  Undecided
+                               3  No more
+                               4  Sterilized (respondent or partner(s))
+                               5  Declared infecund (respondent or partner(s))
+                               6  Never had sex
+                               7  Man declared infecund
+                               8  Man has no partner
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV603                  Preferred waiting time for birth of a/another c  547    3    N    I    1    0   No   No
+                               100      Wanted now
+                               101      Months: 1
+                               102:198  
+                               199      Months: number missing
+                               201      Years: 1
+                               202:298  
+                               299      Years: number missing
+                               993      After marriage
+                               994      Soon, now
+                               996      Other, non-numeric
+                               997      Inconsistent
+                               998      Don't know
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV604                  Preferred waiting time for birth of a/another c  550    1    N    I    1    0   No   No
+                               0  <12 months
+                               1  1 year
+                               2  2 years
+                               3  3 years
+                               4  4 years
+                               5  5 years
+                               6  6+ years
+                               7  Non-numeric
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV605                  Desire for more children                         551    1    N    I    1    0   No   No
+                               1  Wants within 2 years
+                               2  Wants after 2+ years
+                               3  Wants, unsure timing
+                               4  Undecided
+                               5  Wants no more
+                               6  Sterilized (respondent or partner(s))
+                               7  Declared infecund (respondent or partner(s))
+                               8  Never had sex
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV613                  Ideal number of children                         552    2    N    I    1    0   No   No
+                               0:50  
+                               96    Non-numeric response
+                               98    Don't know
+                           (m) 99    Missing
+MV614                  Ideal number of children (grouped)               554    1    N    I    1    0   No   No
+                               0:5  
+                               6    6+
+                               7    Non-numeric response
+MV616                  Desired time for future birth                    555    3    N    I    1    0   No   No
+                               100      Wanted now
+                               101      Months: 1
+                               102:198  
+                               199      Months: number missing
+                               201      Years: 1
+                               202:298  
+                               299      Years: number missing
+                               993      After marriage
+                               994      Soon/now
+                               995      Can't get pregnant
+                               996      Other
+                               998      Don't know
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV621                  NA - Wife's desire for children                  558    1    N    I    1    0   No   No
+                               1  Both want same
+                               2  Wife wants more
+                               3  Wife wants fewer
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV627                  Ideal number of boys                             559    2    N    I    1    0   No   No
+                               0:50  
+                               96    Other
+                               98    Don't know
+                           (m) 99    Missing
+MV628                  Ideal number of girls                            561    2    N    I    1    0   No   No
+                               0:50  
+                               96    Other
+                               98    Don't know
+                           (m) 99    Missing
+MV629                  Ideal number of either sex                       563    2    N    I    1    0   No   No
+                               0:50  
+                               96    Other
+                               98    Don't know
+                           (m) 99    Missing
+MV631                  NA - Problem if wife became pregnant             565    1    N    I    1    0   No   No
+                               1  Big problem
+                               2  Small problem
+                               3  No problem
+                               4  Says she can't get pregnant/not having sex
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV633A                 NA - Wife justified refusing sex: husband has S  566    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV633B                 Wife justified refusing sex: husband has other   567    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV633C                 NA - Wife justified refusing sex: recent birth   568    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV633D                 NA - Wife justified refusing sex: tired, not in  569    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV633E                 NA - Wife justified refusing sex: CS reason      570    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV633F                 NA - Wife justified refusing sex: CS reason      571    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV633G                 NA - Wife justified refusing sex: CS reason      572    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV634A                 NA - Wife refuses to have sex, husband has righ  573    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know, depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV634B                 NA - Wife refuses to have sex, husband has righ  574    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know, depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV634C                 NA - Wife refuses to have sex, husband has righ  575    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know, depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV634D                 NA - Wife refuses to have sex, husband has righ  576    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know, depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV714                  Currently working                                577    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV714A                 Have a job, but currently absent                 578    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV716                  Occupation                                       579    5    N    I    1    0   No   No
+                               0      Not working and didn't work in last 12 months
+                               111    Cereal crops
+                               112    Cultivation of roots, tubers and dry leguminous vegetables
+                               113    Oilseed crop
+                               114    Cotton cultivation
+                               115    Cotton ginning
+                               116    Other crops
+                               121    Market gardening
+                               122    Reproduction of plants (nurseries); horticulture
+                               131    Cocoa farming
+                               132    Coffee growing
+                               133    Tea culture
+                               134    Banana growing
+                               135    Pineapple culture
+                               136    Cultivation of other fruits
+                               137    Cultivation of spice plants
+                               141    Cattle raising
+                               142    Breeding horses and other equines
+                               143    Pig farming
+                               144    Poultry farming
+                               145    Camel farming
+                               146    Animal Husbandry
+                               160    Support activities for crops and livestock
+                               170    Hunting and related activities
+                               211    Forestry
+                               212    Logging
+                               220    Forest production and gathering
+                               500    Artisanal and industrial marine fishing
+                               1000   Coal and lignite extraction
+                               1200   Extraction of uranium ores
+                               1310   Extraction of iron ores
+                               1321   Extraction of precious metal ores
+                               1322   Bauxite mining
+                               1323   Extraction of copper ores
+                               1324   Extraction of manganese ores
+                               1325   Extraction of other metal ores
+                               1410   Extraction of stones, sands and clays
+                               1421   Extraction of phosphates and potassium salts, natural
+                               1422   Mineral Extractions for the Chemical Industry
+                               1431   Extraction or production of salt and natron
+                               1432   Extraction of diamonds and other precious stones
+                               1433   Other extractions
+                               1510   Slaughter, processing and preservation of meat
+                               1521   Freezing of fish, crustaceans and molluscs
+                               1523   Drying, salting or smoking fish
+                               1530   Processing and preservation of fruits and vegetables
+                               1540   Manufacture of fats of animal and vegetable origin
+                               1550   Dairy and ice cream manufacturing
+                               1561   Animal Feed Manufacturing/ Husbandry rice production
+                               1562   Manufacture of starch products
+                               1571   Manufacture of fresh bread and pastries
+                               1572   Biscuits and preserving pastry
+                               1573   Manufacture of pasta, couscous and similar farinaceous products
+                               1581   Manufacture of sugar and molasses
+                               1582   Chocolate factory; confectionery
+                               1583   Processing of coffee, tea
+                               1584   Condiment and Seasoning Manufacturing
+                               1585   Manufacture of other commodities
+                               1591   Manufacture of alcoholic beverages
+                               1592   Production of table waters and non-alcoholic beverages
+                               1600   Manufacture of tobacco products
+                               1710   Spinning, weaving and textile finishing
+                               1721   Manufacture of carpets and rugs
+                               1800   Manufacture of clothing articles
+                               1911   Primer, tanning of leather and furs
+                               1912   Manufacture of travel goods, leather goods, saddlery and saddlery
+                               1920   Footwear manufacturing
+                               2010   Sawing and planing wood
+                               2021   Manufacture of veneer sheets, plywood and panels
+                               2022   Manufacture of articles of wood, carpentry and carpentry or of packaging
+                               2023   Manufacture of other articles of wood, cork, wickerwork or plaiting
+                               2101   Pulp, paper and paperboard manufacturing
+                               2102   Manufacture of corrugated board and packaging of paper or paperboard
+                               2103   Manufacture of articles of paper or paperboard
+                               2211   Publishing of books and periodicals
+                               2220   Printing and related activities
+                               2230   Reproduction of recordings
+                               2310   Oil refining
+                               2411   Manufacture of nitrogen products and fertilizers
+                               2412   Charcoal production
+                               2413   Manufacture of other basic chemical products
+                               2421   Pharmaceutical industry
+                               2422   Manufacture of traditional medicines
+                               2431   Manufacture of soaps, detergents and cleaning products
+                               2432   Manufacture of perfumes and toilet preparations
+                               2441   Manufacture of agrochemicals
+                               2442   Manufacture of paints, varnishes, admixtures and printing ink
+                               2450   Manufacture of artificial or synthetic fibers
+                               2511   Tire manufacturing and retreading
+                               2512   Manufacture of other articles of rubber
+                               2520   Manufacture of plastic products
+                               2610   Manufacture of glass and glassware
+                               2621   Manufacture of ceramic tiles
+                               2622   Manufacture of tiles and bricks
+                               2623   Manufacture of other ceramic products
+                               2631   Manufacture of cement, lime and plaster
+                               2632   Manufacture of materials and articles of cement, concrete or plaster; st
+                               2633   Non-Metallic Mineral Product Manufacturing
+                               2710   Iron and steel industry and primary processing of steel
+                               2720   Metallurgy and primary processing of non-ferrous metals
+                               2730   Foundry
+                               2810   Manufacture of metal structures, tanks and waterworks
+                               2820   Manufacture of other fabricated metal products
+                               2910   General-purpose machinery manufacturing
+                               2920   Manufacture of special purpose machinery
+                               2930   Manufacture of household appliances
+                               3000   Manufacture of computers and peripheral equipment
+                               3200   Manufacture of communication equipmen
+                               3611   Mattress and box spring manufacturing
+                               3621   Manufacture of jewelery
+                               3622   Manufacture of musical instruments
+                               3624   Video game consoles and game controllers
+                               3700   Waste recovery
+                               4010   Generation, transmission and distribution of electricity
+                               4020   Production and distribution of gaseous fuels and ice
+                               4100   Collection, treatment and distribution of water
+                               4510   Demolition and site preparation
+                               4521   Construction of complete buildings
+                               4522   Civil Engineering
+                               4530   Installation work
+                               4540   Finishing work
+                               4550   Other specialized construction work
+                               5010   Trade in motor vehicles
+                               5020   Maintenance and repair of motor vehicles
+                               5030   Trade in spare parts and car accessories
+                               5041   Trade and repair of motorcycles
+                               5050   Retail sale of motor fuels in specialized stores
+                               5110   Wholesale Trade Agents Activities
+                               5121   Wholesale of agricultural raw materials and animal feed
+                               5122   Wholesale of live animals, hides and skins
+                               5123   Wholesale of food products, beverages and manufactured tobacco
+                               5131   Wholesale of textiles, clothing and footwear
+                               5132   Wholesale of pharmaceutical and medical products
+                               5133   Wholesale of non-food consumer goodsn. c. at.
+                               5141   Wholesale of fuels
+                               5142   Wholesale of wood
+                               5143   Wholesale of other building materials, hardware and plumbing supplies
+                               5144   Wholesale trade in miscellaneous non-agricultural intermediate goods
+                               5151   Wholesale of computer and communication equipment
+                               5152   Wholesale of other industrial equipment and miscellaneous supplies
+                               5160   Non-specialized wholesale trade
+                               5210   Retail sale in non-specialized stores
+                               5221   Retail sale in specialized stores of food products, beverages and manufa
+                               5222   Retail sale in specialized stores of pharmaceutical and medical products
+                               5223   Retail sale in specialized stores of textiles, clothing, footwear and le
+                               5224   Retail sale of household equipment and household appliances in specializ
+                               5225   Retail sale of hardware, paints, glass, carpets and floor and wall cover
+                               5226   Retail sale of books, newspapers and sports and leisure articles in spec
+                               5227   Retail sale in specialized stores of computer equipment and telecommunic
+                               5228   Retail sale in specialized stores of other products
+                               5241   Retail trade in stalls and markets for meat and fish
+                               5242   Retail trade in stalls and markets for fresh fruit and vegetables
+                               5243   Retail trade in stalls and markets for cereals, tubers and other food pr
+                               5244   Retail sale of stalls and markets for textiles, clothing, footwear and l
+                               5245   Retail sale of stalls and markets for miscellaneous non-food items
+                               5246   Other retail out of store
+                               5250   Repair of personal and household goods
+                               5510   Rental accomodation
+                               5521   Catering
+                               5522   Licensed Bars
+                               6010   Rail transport
+                               6021   Road transport of passengers
+                               6030   Road transport of goods
+                               6040   Pipeline transportation
+                               6110   Maritime and coastal transport
+                               6120   Inland waterways
+                               6200   Passenger air transport
+                               6311   Handling
+                               6312   Storage
+                               6322   Transport infrastructure operation
+                               6331   Activities of booking agencies and tour operators
+                               6332   Freight transport organization
+                               6410   Universal postal service activities
+                               6421   Telecommunications
+                               6511   Central banking activities
+                               6512   Other monetary activities
+                               6521   Microfinance activities
+                               6522   Investment funds, holding companies and similar financial activities
+                               6601   Life insurance and pension funds
+                               6602   Property and casualty insurance and reinsurance
+                               6710   Third party fund management
+                               6720   Insurance auxiliary activities
+                               7011   Real estate development
+                               7012   Real estate rental and activities on own property
+                               7020   Real estate agency activities
+                               7111   Motor vehicle rental
+                               7120   Rental of machinery and equipment
+                               7130   Rental of personal and household goods nec
+                               7210   Computer programming
+                               7220   Repair of computers and peripheral equipment
+                               7230   Data processing, hosting and related activities; Internet portals
+                               7310   Research and development in the physical and natural sciences
+                               7320   Research and development in the humanities and social sciences
+                               7411   Legal activities
+                               7412   Accounting Activities
+                               7413   Management consulting
+                               7421   Architecture, engineering activities
+                               7422   Control activities and technical analysis
+                               7431   Advertisement
+                               7432   Investigations and security
+                               7433   Combined building support activities
+                               7434   Photographic activities
+                               7435   Specialized design activities
+                               7510   General, economic and social administration activities
+                               7520   Public Prerogative Activities
+                               7530   Compulsory social security activities
+                               8010   Pre-primary and primary education
+                               8021   General secondary education
+                               8022   Technical or vocational secondary education
+                               8030   Post-secondary education, higher or lower
+                               8040   Other teaching activities
+                               8511   Hospital activities
+                               8512   Medical and / or dental practice
+                               8513   Activities of traditional healers
+                               8514   Other activities for human health
+                               8520   Veterinary activities
+                               8530   Medico-social and social housing activities
+                               9000   Sewage collection and treatment
+                               9110   Activities of economic, employers' and professional organizations
+                               9120   Activities of workers' unions
+                               9131   Activities of religious organizations
+                               9132   Activities of political organizations
+                               9133   Activities of other membership organizations
+                               9211   Video production: cinema and television
+                               9212   Publishing and broadcasting of radio programs
+                               9213   Creative, arts and entertainment activities
+                               9220   Other information-related activities
+                               9230   Conservation and enhancement of heritage
+                               9241   Organization of games of chance and money
+                               9242   Sports, recreation and leisure activities
+                               9301   Washing and cleaning of textiles
+                               9302   Hairdressing and beauty care
+                               9303   Funeral services
+                               9304   Other personal services
+                               9500   Household activities as employers of domestic staff
+                               9900   Activities of international organizations
+                               99996  Other
+                               99998  Don't know
+                           (m) 99999  Missing
+                          (na)        Not applicable
+MV717                  Occupation (grouped)                             584    2    N    I    1    0   No   No
+                               0   Not working
+                               1   Professional/technical/managerial
+                               2   Clerical
+                               3   Sales
+                               4   Agriculture - self employed
+                               5   Agriculture - employee
+                               6   Household and domestic
+                               7   Services
+                               8   Skilled manual
+                               9   Unskilled manual
+                               96  Other unclassified
+                               98  Don't know
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV719                  NA - Works for family, others, self              586    1    N    I    1    0   No   No
+                               1  For family member
+                               2  For someone else
+                               3  Self-employed
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV721                  NA - Works at home or away                       587    1    N    I    1    0   No   No
+                               1  At home
+                               2  Away
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV731                  Worked in last 12 months                         588    1    N    I    1    0   No   No
+                               0  No
+                               1  In the past year
+                               2  Currently working
+                           (m) 9  Missing
+MV732                  Employment all year/seasonal                     589    1    N    I    1    0   No   No
+                               1  All year
+                               2  Seasonal
+                               3  Occasional
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV739                  Person who usually decides how to spend respond  590    1    N    I    1    0   No   No
+                               1  Respondent alone
+                               2  Respondent and wife/partner
+                               3  Respondent and other person
+                               4  Wife/partner alone
+                               5  Someone else
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV740                  NA - Type of land where respondent works         591    1    N    I    1    0   No   No
+                               0  Own land
+                               1  Family land
+                               2  Someone else's land
+                               3  Rented land
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV741                  Type of earnings from respondent's work          592    1    N    I    1    0   No   No
+                               0  Not paid
+                               1  Cash only
+                               2  Cash and in-kind
+                               3  In-kind only
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV743A                 Person who should have greater say: respondent'  593    1    N    I    1    0   No   No
+                               1  Respondent alone
+                               2  Respondent and wife/partner
+                               3  Respondent and other person
+                               4  Wife/partner alone
+                               5  Someone else
+                               6  Other
+                               8  Don't know/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV743B                 Person who should have greater say: large house  594    1    N    I    1    0   No   No
+                               1  Respondent alone
+                               2  Respondent and wife/partner
+                               3  Respondent and other person
+                               4  Wife/partner alone
+                               5  Someone else
+                               6  Other
+                               8  Don't know/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV743C                 NA - Person who should have greater say: daily   595    1    N    I    1    0   No   No
+                               1  Respondent alone
+                               2  Respondent and wife/partner
+                               3  Respondent and other person
+                               4  Wife/partner alone
+                               5  Someone else
+                               6  Decision not made/not applicable
+                               8  Don't know/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV743D                 NA - Person who should have greater say: visits  596    1    N    I    1    0   No   No
+                               1  Respondent alone
+                               2  Respondent and wife/partner
+                               3  Respondent and other person
+                               4  Wife/partner alone
+                               5  Someone else
+                               6  Decision not made/not applicable
+                               8  Don't know/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV743E                 NA - Person who should have greater say: food t  597    1    N    I    1    0   No   No
+                               1  Respondent alone
+                               2  Respondent and wife/partner
+                               3  Respondent and other person
+                               4  Wife/partner alone
+                               5  Someone else
+                               6  Decision not made/not applicable
+                               8  Don't know/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV743F                 NA - Person who should have greater say: decidi  598    1    N    I    1    0   No   No
+                               1  Respondent alone
+                               2  Respondent and wife/partner
+                               3  Respondent and other person
+                               4  Wife/partner alone
+                               5  Someone else
+                               6  Decision not made/not applicable
+                               8  Don't know/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV743G                 NA - Person who should have greater say: decidi  599    1    N    I    1    0   No   No
+                               1  Respondent alone
+                               2  Respondent and wife/partner
+                               3  Respondent and other person
+                               4  Wife/partner alone
+                               5  Someone else
+                               6  Decision not made/not applicable
+                               8  Don't know/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV744A                 Beating justified: wife goes out without tellin  600    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+MV744B                 Beating justified: wife neglects the children    601    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+MV744C                 Beating justified: wife argues with husband      602    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+MV744D                 Beating justified: wife refuses to have sex wit  603    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+MV744E                 Beating justified: wife burns food               604    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+MV745A                 Owns a house alone or jointly                    605    1    N    I    1    0   No   No
+                               0  Does not own
+                               1  Alone only
+                               2  Jointly only
+                               3  Both alone and jointly
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV745B                 Owns land alone or jointly                       606    1    N    I    1    0   No   No
+                               0  Does not own
+                               1  Alone only
+                               2  Jointly only
+                               3  Both alone and jointly
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV745C                 Title deed on house own by respondent            607    1    N    I    1    0   No   No
+                               0  Does not have a title deed
+                               1  Has a title deed and respondent on title
+                               2  Has a title deed but respondent not on title
+                               3  Has a title deed, don't know if respondent on title
+                               8  Don't know if has a title deed
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV745D                 Title deed on land own by respondent             608    1    N    I    1    0   No   No
+                               0  Does not have a title deed
+                               1  Has a title deed and respondent on title
+                               2  Has a title deed but respondent not on title
+                               3  Has a title deed, don't know if respondent on title
+                               8  Don't know if has a title deed
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV747A                 NA - Childbearing is a woman's concern           609    1    N    I    1    0   No   No
+                               0  Disagree
+                               1  Agree
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV747B                 NA - Important for mother/child health to get a  610    1    N    I    1    0   No   No
+                               0  Disagree
+                               1  Agree
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV750                  Ever heard of a Sexually Transmitted Infection   611    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+MV751                  Ever heard of AIDS                               612    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV754BP                NA - Reduce risk of getting HIV: do not have se  613    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV754CP                Reduce risk of getting HIV: always use condoms   614    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV754DP                Reduce risk of getting HIV: have 1 sex partner   615    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV754JP                Can get HIV from mosquito bites                  616    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV754WP                Can get HIV by sharing food with person who has  617    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV756                  A healthy looking person can have HIV            618    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV761                  Condom used during last sex with most recent pa  619    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV761B                 Condom used during last sex with 2nd to most re  620    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV761C                 Condom used during last sex with 3rd to most re  621    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762                  Source of condoms used for last sex              622    2    N    I    1    0   No   No
+                               10  PUBLIC SECTOR
+                               11  Government hospital
+                               12  Government health centre
+                               13  Mobile clinic
+                               14  Health/Community worker
+                               16  Other public sector
+                               20  PRIVATE SECTOR
+                               21  Private hospital, clinic
+                               22  Pharmacy
+                               23  Private doctor
+                               24  Mobile clinic
+                               25  Teligious hospital/centre
+                               26  Other private sector
+                               30  NGO
+                               31  Family planning clinic
+                               40  OTHER
+                               41  Shop
+                               42  Religious institution
+                               43  Friends/Parents
+                               96  Other
+                               98  Don't know
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV762A                 Brand of condom used for last sex                624    2    N    I    1    0   No   No
+                               1   Prudence
+                               2   Cool
+                               3   Pas de logo
+                               96  Other
+                               98  Don't know
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV762AA                NA - Source for condoms: government hospital     626    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AB                NA - Source for condoms: CS public               627    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AC                NA - Source for condoms: CS public               628    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AD                NA - Source for condoms: CS public               629    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AE                NA - Source for condoms: CS public               630    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AF                NA - Source for condoms: CS public               631    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AG                NA - Source for condoms: CS public               632    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AH                NA - Source for condoms: CS public               633    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AI                NA - Source for condoms: CS public               634    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AJ                NA - Source for condoms: private hospital/clini  635    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AK                NA - Source for condoms: pharmacy                636    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AL                NA - Source for condoms: private doctor          637    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AM                NA - Source for condoms: CS private              638    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AN                NA - Source for condoms: CS private              639    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AO                NA - Source for condoms: CS private              640    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AP                NA - Source for condoms: CS private              641    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AQ                NA - Source for condoms: CS private              642    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AR                NA - Source for condoms: CS private              643    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AS                NA - Source for condoms: CS other                644    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AT                NA - Source for condoms: CS other                645    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AU                NA - Source for condoms: CS other                646    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AV                NA - Source for condoms: CS other                647    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AW                NA - Source for condoms: CS other                648    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AX                NA - Source for condoms: other                   649    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762AZ                NA - Don't know any source for condoms           650    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes: don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BA                NA - Source for female condoms: government hosp  651    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BB                NA - Source for female condoms: CS public        652    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BC                NA - Source for female condoms: CS public        653    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BD                NA - Source for female condoms: CS public        654    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BE                NA - Source for female condoms: CS public        655    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BF                NA - Source for female condoms: CS public        656    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BG                NA - Source for female condoms: CS public        657    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BH                NA - Source for female condoms: CS public        658    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BI                NA - Source for female condoms: CS public        659    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BJ                NA - Source for female condoms: private hospita  660    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BK                NA - Source for female condoms: pharmacy         661    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BL                NA - Source for female condoms: private doctor   662    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BM                NA - Source for female condoms: CS private       663    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BN                NA - Source for female condoms: CS private       664    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BO                NA - Source for female condoms: CS private       665    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BP                NA - Source for female condoms: CS private       666    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BQ                NA - Source for female condoms: CS private       667    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BR                NA - Source for female condoms: CS private       668    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BS                NA - Source for female condoms: CS other         669    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BT                NA - Source for female condoms: CS other         670    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BU                NA - Source for female condoms: CS other         671    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BV                NA - Source for female condoms: CS other         672    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BW                NA - Source for female condoms: CS other         673    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BX                NA - Source for female condoms: other            674    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV762BZ                NA - Don't know any source for female condoms    675    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes: don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV763A                 Had any STI in last 12 months                    676    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV763B                 Had genital sore/ulcer in last 12 months         677    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV763C                 Had genital discharge in last 12 months          678    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV763D                 NA - Had CS STI in last 12 months                679    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV763E                 NA - Had CS STI in last 12 months                680    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV763F                 NA - Had CS STI in last 12 months                681    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV763G                 NA - Had CS STI in last 12 months                682    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV766A                 Number of sex partners, excluding spouse, in la  683    2    N    I    1    0   No   No
+                               0:95  
+                               98    Don't know
+                           (m) 99    Missing
+MV766B                 Number of sex partners, including spouse, in la  685    2    N    I    1    0   No   No
+                               0:94  
+                               95    95+
+                               98    Don't know
+                           (m) 99    Missing
+MV767A                 Relationship with most recent sex partner        687    2    N    I    1    0   No   No
+                               1   Spouse
+                               2   Girlfriend/fiance
+                               3   Other friend
+                               4   Casual acquaintance
+                               5   Relative
+                               6   Commercial sex worker
+                               7   Live-in partner
+                               96  Other
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV767B                 Relationship with 2nd to most recent sex partne  689    2    N    I    1    0   No   No
+                               1   Spouse
+                               2   Girlfriend/fiance
+                               3   Other friend
+                               4   Casual acquaintance
+                               5   Relative
+                               6   Commercial sex worker
+                               7   Live-in partner
+                               96  Other
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV767C                 Relationship with 3rd to most recent sex partne  691    2    N    I    1    0   No   No
+                               1   Spouse
+                               2   Girlfriend/fiance
+                               3   Other friend
+                               4   Casual acquaintance
+                               5   Relative
+                               6   Commercial sex worker
+                               7   Live-in partner
+                               96  Other
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV768A                 NA - Length of time had sex relations with most  693    3    N    I    1    0   No   No
+                               101      Days: 1
+                               102:198  
+                               199      Days: number missing
+                               201      Months: 1
+                               202:298  
+                               299      Months: number missing
+                               301      Years: 1
+                               302:398  
+                               399      Years: number missing
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV768B                 NA - Length of time had sex relations with 2nd   696    3    N    I    1    0   No   No
+                               101      Days: 1
+                               102:198  
+                               199      Days: number missing
+                               201      Months: 1
+                               202:298  
+                               299      Months: number missing
+                               301      Years: 1
+                               302:398  
+                               399      Years: number missing
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV768C                 NA - Length of time had sex relations with 3rd   699    3    N    I    1    0   No   No
+                               101      Days: 1
+                               102:198  
+                               199      Days: number missing
+                               201      Months: 1
+                               202:298  
+                               299      Months: number missing
+                               301      Years: 1
+                               302:398  
+                               399      Years: number missing
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV769                  NA - Can get a condom                            702    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV769A                 NA - Can get a female condom                     703    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770                  Sought advice/treatment for last STI infection   704    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770A                 Place for HIV test: government hospital          705    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770B                 Place for HIV test: government health center     706    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770C                 Place for HIV test: Independent testing and cou  707    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770D                 Place for HIV test: Family planning clinic       708    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770E                 Place for HIV test: Mobile testing and counsel   709    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770F                 Place for HIV test: Other public sector          710    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770G                 NA - Place for HIV test: CS public               711    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770H                 NA - Place for HIV test: CS public               712    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770I                 NA - Place for HIV test: CS public               713    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770J                 NA - Place for HIV test: CS public               714    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770K                 Place for HIV test: private hospital/clinic/doc  715    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770L                 Place for HIV test: Independent testing and cou  716    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770M                 Place for HIV test: Pharmacy                     717    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770N                 Place for HIV test: Mobile testing and counsel   718    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770O                 Place for HIV test: Other private sector         719    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770P                 NA - Place for HIV test: CS private              720    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770Q                 NA - Place for HIV test: CS private              721    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770R                 NA - Place for HIV test: CS private              722    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770S                 NA - Place for HIV test: CS private              723    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770T                 Place for HIV test: Shop                         724    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770U                 NA - Place for HIV test: CS other                725    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770V                 NA - Place for HIV test: CS other                726    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770W                 NA - Sought STI advice/treatment from: CS other  727    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV770X                 Place for HIV test: other                        728    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV774A                 HIV transmitted during pregnancy                 729    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV774B                 HIV transmitted during delivery                  730    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV774C                 HIV transmitted by breastfeeding                 731    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV775                  NA - Knows someone who has, or is suspected of   732    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV777                  NA - Would want HIV infection in family to rema  733    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV777A                 Would be ashamed if someone in the family had H  734    1    N    I    1    0   No   No
+                               0  Disagree
+                               1  Agree
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV778                  NA - Willing to care for relative with AIDS      735    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV779                  NA - A female teacher infected with HIV, but is  736    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV780                  NA - Children should be taught about condoms to  737    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV781                  Ever been tested for HIV                         738    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV783                  Know a place to get HIV test                     739    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784A                 Place for HIV test: government hospital          740    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784B                 Place for HIV test: government health center     741    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784C                 Place for HIV test: Independent testing and cou  742    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784D                 Place for HIV test: Family planning clinic       743    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784E                 Place for HIV test: Mobile testing and counsel   744    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784F                 Place for HIV test: Other public sector          745    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784G                 NA - Place for HIV test: CS public               746    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784H                 NA - Place for HIV test: CS public               747    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784I                 NA - Place for HIV test: CS public               748    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784J                 NA - Place for HIV test: CS public               749    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784K                 Place for HIV test: private hospital/clinic/doc  750    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784L                 Place for HIV test: Independent testing and cou  751    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784M                 Place for HIV test: Pharmacy                     752    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784N                 Place for HIV test: Mobile testing and counsel   753    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784O                 Place for HIV test: Other private sector         754    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784P                 NA - Place for HIV test: CS private              755    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784Q                 NA - Place for HIV test: CS private              756    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784R                 NA - Place for HIV test: CS private              757    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784S                 NA - Place for HIV test: CS private              758    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784T                 NA - Place for HIV test: CS other                759    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784U                 NA - Place for HIV test: CS other                760    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784V                 NA - Place for HIV test: CS other                761    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV784X                 Place for HIV test: other                        762    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV785                  Heard about other STIs                           763    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV791                  Have ever paid anyone in exchange for sex        764    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV791A                 Last 12 months have given gifts or other goods   765    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV791B                 Have ever given gifts or other goods to have se  766    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV793                  Paid for sex in last 12 months                   767    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV793A                 Condom used last time paid for sex in last 12 m  768    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV793B                 Condom used every time paid for sex in last 12   769    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV820                  NA - Condom used at first sex                    770    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV822                  Wife justified asking husband to use condom if   771    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV823                  Can get HIV by witchcraft or supernatural means  772    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV824                  Drugs to avoid HIV transmission to baby during   773    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV825                  Would buy vegetables from vendor with HIV        774    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV826                  NA - Last time tested for HIV                    775    1    N    I    1    0   No   No
+                               1  Less than 12 months
+                               2  12-23 months
+                               3  2 years or more
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV826A                 Months ago most recent HIV test                  776    2    N    I    1    0   No   No
+                               0:24  
+                               95    Two or more years
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV827                  NA - Last HIV test: on your own, offered or req  778    1    N    I    1    0   No   No
+                               1  Asked for the test
+                               2  Offered and accepted
+                               3  Required
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV828                  Received result from last HIV test               779    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV829                  Place where last HIV test was taken              780    2    N    I    1    0   No   No
+                               10  PUBLIC SECTOR
+                               11  Government hospital
+                               12  Government health center
+                               13  Independent testing and counseling centre
+                               14  Family planning clinic
+                               15  Mobile testing and counsel services
+                               16  Other public sector
+                               20  PRIVATE SECTOR
+                               21  Private hospital, clinic or doctor
+                               22  Independent testing and counsel centre
+                               23  Pharmacy
+                               24  Mobile testing and counsel services
+                               26  Other private sector
+                               31  Home
+                               32  Work place
+                               33  Detention center/Prison
+                               96  Other
+                           (m) 99  Missing
+                          (na)     Not applicable
+MV832B                 Time since last sex with 2nd to most recent par  782    3    N    I    1    0   No   No
+                               100      <1 day ago
+                               101      Days: 1
+                               102:160  
+                               199      Days: number missing
+                               201      Weeks: 1
+                               202:250  
+                               299      Weeks: number missing
+                               301      Months: 1
+                               302:312  
+                               399      Months: number missing
+                               401      Years: 1
+                               995      Within last 4 weeks
+                               996      Before last birth
+                               997      Inconsistent
+                               998      Don't know
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV832C                 Time since last sex with 3rd to most recent par  785    3    N    I    1    0   No   No
+                               100      <1 day ago
+                               101      Days: 1
+                               102:160  
+                               199      Days: number missing
+                               201      Weeks: 1
+                               202:220  
+                               299      Weeks: number missing
+                               301      Months: 1
+                               302:312  
+                               399      Months: number missing
+                               401      Years: 1
+                               995      Within last 4 weeks
+                               996      Before last birth
+                               997      Inconsistent
+                               998      Don't know
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV833A                 Used condom every time had sex with most recent  788    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV833B                 Used condom every time had sex with 2nd to most  789    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV833C                 Used condom every time had sex with 3rd to most  790    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV834A                 Age of most recent partner                       791    2    N    I    1    0   No   No
+                               10:94  
+                               95     95+
+                               98     Don't know
+                           (m) 99     Missing
+                          (na)        Not applicable
+MV834B                 Age of 2nd to most recent partner                793    2    N    I    1    0   No   No
+                               10:94  
+                               95     95+
+                               98     Don't know
+                           (m) 99     Missing
+                          (na)        Not applicable
+MV834C                 Age of 3rd to most recent partner                795    2    N    I    1    0   No   No
+                               10:94  
+                               95     95+
+                               98     Don't know
+                           (m) 99     Missing
+                          (na)        Not applicable
+MV835A                 NA - Alcohol consumption at last sex with most   797    1    N    I    1    0   No   No
+                               0  No
+                               1  Respondent drunk only
+                               2  Partner drunk only
+                               3  Both drunk
+                               4  Neither drunk but consumed alcohol
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV835B                 NA - Alcohol consumption at last sex with 2nd t  798    1    N    I    1    0   No   No
+                               0  No
+                               1  Respondent drunk only
+                               2  Partner drunk only
+                               3  Both drunk
+                               4  Neither drunk but consumed alcohol
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV835C                 NA - Alcohol consumption at last sex with 3rd t  799    1    N    I    1    0   No   No
+                               0  No
+                               1  Respondent drunk only
+                               2  Partner drunk only
+                               3  Both drunk
+                               4  Neither drunk but consumed alcohol
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV836                  Total lifetime number of sex partners            800    2    N    I    1    0   No   No
+                               1:94  
+                               95    95+
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV837                  NA - Heard of drugs to help HIV infected people  802    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV844                  NA - Knows someone denied health services for h  803    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know anyone with AIDS
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV845                  NA - Knows someone denied social event for havi  804    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV846                  NA - Knows someone verbally abused for having,   805    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV847                  NA - People with HIV should be ashamed of thems  806    1    N    I    1    0   No   No
+                               0  Disagree
+                               1  Agree
+                               8  Don't know/no opinion
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV848                  NA - People with HIV should be blamed for bring  807    1    N    I    1    0   No   No
+                               0  Disagree
+                               1  Agree
+                               8  Don't know/no opinion
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV849                  NA - Children 12-14 should be taught to wait fo  808    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851A                 NA - Young men should wait for sex until marria  809    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851B                 NA - Most young men wait for sex until marriage  810    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851C                 NA - Unmarried sexually active men should have   811    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851D                 NA - Most unmarried sexually active men have on  812    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851E                 NA - Married men should only have sex with thei  813    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851F                 NA - Most married men only have sex with their   814    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851G                 NA - Young women should wait for sex until marr  815    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851H                 NA - Most young women wait for sex until marria  816    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851I                 NA - Unmarried sexually active women should hav  817    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851J                 NA - Most unmarried sexually active women have   818    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851K                 NA - Married women should only have sex with th  819    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV851L                 NA - Most married women only have sex with thei  820    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV852A                 How long ago first had sex with most recent par  821    3    N    I    1    0   No   No
+                               100      Days: 0
+                               101      Days: 1
+                               102:198  
+                               199      Days: number missing
+                               201      Weeks: 1
+                               202:298  
+                               299      Weeks: number missing
+                               301      Months: 1
+                               302:398  
+                               399      Months: number missing
+                               401      Years: 1
+                               402:498  
+                               499      Years: number missing
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV852B                 How long ago first had sex with 2nd most recent  824    3    N    I    1    0   No   No
+                               101      Days: 1
+                               102:198  
+                               199      Days: number missing
+                               201      Weeks: 1
+                               202:298  
+                               299      Weeks: number missing
+                               301      Months: 1
+                               302:398  
+                               399      Months: number missing
+                               401      Years: 1
+                               402:498  
+                               499      Years: number missing
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV852C                 How long ago first had sex with 3rd most recent  827    3    N    I    1    0   No   No
+                               101      Days: 1
+                               102:198  
+                               199      Days: number missing
+                               201      Weeks: 1
+                               202:298  
+                               299      Weeks: number missing
+                               301      Months: 1
+                               302:398  
+                               399      Months: number missing
+                               401      Years: 1
+                               402:498  
+                               499      Years: number missing
+                           (m) 999      Missing
+                          (na)          Not applicable
+MV853A                 Times in last 12 months had sex with most recen  830    2    N    I    1    0   No   No
+                               1:94  
+                               95    95+
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV853B                 Times in last 12 months had sex with 2nd most r  832    2    N    I    1    0   No   No
+                               1:94  
+                               95    95+
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV853C                 Times in last 12 months had sex with 3rd most r  834    2    N    I    1    0   No   No
+                               1:94  
+                               95    95+
+                               98    Don't know
+                           (m) 99    Missing
+                          (na)       Not applicable
+MV854A                 Concurrent sexual partners                       836    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV854B                 Cumulative concurrent sexual partners            837    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                           (m) 9  Missing
+MV856                  Knowledge and use of HIV test kits               838    1    N    I    1    0   No   No
+                               0  Never heard of HIV test kits
+                               1  Has tested with HIV test kits
+                               2  Knows test kits but never tested with them
+                               3  Knows test kits un-known if tested
+                           (m) 9  Missing
+MV857A                 Children with HIV should be allowed to attend s  839    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV857B                 People hesitate to take HIV test because reacti  840    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV857C                 People talk badly about people with or believed  841    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV857D                 People with or believed to have HIV lose respec  842    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+MV858                  Would be afraid to get HIV from contact with sa  843    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               2  Says he has HIV
+                               8  Don't know/not sure/depends
+                           (m) 9  Missing
+                          (na)    Not applicable
+SM106C                 Consent for blood pressure measurement           844    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM106DA                In 30 minutes before BP measurement, respondent  845    1    N    I    1    0   No   No
+                               0  Non
+                               1  Oui
+SM106DB                In 30 minutes before BP measurement, respondent  846    1    N    I    1    0   No   No
+                               0  Non
+                               1  Oui
+SM106DC                In 30 minutes before BP measurement, respondent  847    1    N    I    1    0   No   No
+                               0  Non
+                               1  Oui
+SM106DD                In 30 minutes before BP measurement, respondent  848    1    N    I    1    0   No   No
+                               0  Non
+                               1  Oui
+SM106FS                Systolic Blood pressure                          849    3    N    I    1    0   No   No
+                               20:350  Systolic
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+SM106FD                Diastolic Blood pressure                         852    3    N    I    1    0   No   No
+                               20:250  Diastolic
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+SMEDUC                 Niveau d'instruction                             855    1    N    I    1    0   No   No
+                               0  None
+                               1  Primary
+                               2  Secondary 1
+                               3  Secondary 2
+                               4  Higher
+                           (m) 9  Missing
+SM123C                 Consent for blood pressure measurement           856    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM123DS                Systolic Blood pressure                          857    3    N    I    1    0   No   No
+                               20:350  Systolic
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+SM123DD                Diastolic Blood pressure                         860    3    N    I    1    0   No   No
+                               20:250  Diastolic
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+SM302E                 Family planning information read on board        863    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM302F                 Family planning information read in a prospectu  864    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM302G                 Family planning information from a cultural/edu  865    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM302H                 Family planning information at a religious serv  866    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM302I                 Family planning information at school            867    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM604A                 Respondent's occupation Group                    868    2    N    I    1    0   No   No
+                               1   Agriculture, Forestry and Fisheries
+                               2   Manufacturing activities, extractive activities and other industrial activi
+                               3   Construction
+                               4   Wholesale Trade and Details, Transportation and Warehousing, Accomodation a
+                               5   Information and Communication
+                               6   Financial and insurance activities
+                               7   Real Estate/Property sales
+                               8   Professional, scientific and technical activities, administration and admin
+                               9   Public administration and Defense, Education, Health and Human services
+                               10  Other service activities
+                               96  Other not classified
+SM817AA                Malaria treatment for children < 5 years must b  870    1    N    I    1    0   No   No
+                               0  No, no need to pay
+                               1  Yes, a fee must be paid
+                               8  Don't know
+SM817AB                Woman has to pay for caesarean section in Benin  871    1    N    I    1    0   No   No
+                               0  No, no need to pay
+                               1  Yes, a fee must be paid
+                               8  Don't know
+SM817C                 Consent for blood pressure measurement           872    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM817DS                Systolic Blood pressure                          873    3    N    I    1    0   No   No
+                               20:350  Systolic
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+SM817DD                Diastolic Blood pressure                         876    3    N    I    1    0   No   No
+                               20:250  Diastolic
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+SM901                  Ever had blood pressure measured                 879    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+SM902                  Ever told has high blood pressure                880    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM903                  Told in last 12 months has high blood pressure   881    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM904                  Given medication for blood pressure              882    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM905                  Currently taking medication to control blood pr  883    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM906                  Ever had blood sugar measured by a health profe  884    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+                               8  Don't know
+SM907                  Ever told by health professional that has high   885    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM908                  In last 12 months told by health professional t  886    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM909                  Given medication by health professional to cont  887    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM910                  Taking medication to control diabetes or high b  888    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM911                  In last 12 months told by health professional t  889    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM912                  Receiving treatment for heart disease            890    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM913                  Ever diagnosed with lung disease by doctor or n  891    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM914                  Receiving treatment for lung disease             892    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM915                  Ever diagnosed with cancer or tumor by doctor o  893    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM916                  Receiving treatment for cancer or tumor          894    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM917                  Ever diagnosed with depression by doctor or nur  895    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM918                  Receiving treatment for depression               896    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM919                  Ever diagnosed with arthritis by doctor or nurs  897    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM920                  Receiving treatment for arthritis                898    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM921                  Ever diagnosed with other chronic disease by do  899    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM921A                 Name of chronic disease                          900    3    N    I    1    0   No   No
+                               1    Anemia / sickle-cell anemia
+                               2    Asthma
+                               3    Eye pain
+                               4    Chest pain
+                               5    Stomach pain
+                               6    Erni
+                               7    Hemorrhoids
+                               8    Stomach/abdominal pain
+                               9    HIV/AIDS related sickness
+                               996  Other
+SM922                  Receiving treatment for other chronic disease    903    1    N    I    1    0   No   No
+                               0  No
+                               1  Yes
+SM933S                 Blood pressure result of S123D: systolic         904    3    N    I    1    0   No   No
+                               20:350  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+SM933D                 Blood pressure result of S123D: diastolic        907    3    N    I    1    0   No   No
+                               20:250  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+SM934S                 Blood pressure result of S1115: systolic         910    3    N    I    1    0   No   No
+                               20:350  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+SM934D                 Blood pressure result of S1115: diastolic        913    3    N    I    1    0   No   No
+                               20:250  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+SM936S                 Mean blood pressure : systolic                   916    3    N    I    1    0   No   No
+                               20:350  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+SM936D                 Mean blood pressure: diastolic                   919    3    N    I    1    0   No   No
+                               20:250  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+SM940S                 Recorded blood pressure: systolic                922    3    N    I    1    0   No   No
+                               20:350  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+SM940D                 Recorded blood pressure: diastolic               925    3    N    I    1    0   No   No
+                               20:250  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+SM941S                 Final blood pressure : systolic                  928    3    N    I    1    0   No   No
+                               20:350  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+SM941D                 Final blood pressure: diastolic                  931    3    N    I    1    0   No   No
+                               20:250  
+                               994     Refused
+                               995     Technical problems
+                               996     Other
+                               997     No BP result
+--------------------------------------------------------------------------------------------------------------
+Relation Name         Primary               Linked by             Secondary             Linked by
+--------------------------------------------------------------------------------------------------------------

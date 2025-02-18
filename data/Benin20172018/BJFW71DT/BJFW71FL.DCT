@@ -1,0 +1,36 @@
+infix dictionary using "C:\COUNTRIES\BJ71\BJFW71FL.DAT" {
+1 lines
+    int      fw101       1:   1-4   
+    str      fw000       1:   5-7   
+    byte     fw102       1:   8-9   
+    byte     fw103       1:  10-10  
+    byte     fw104       1:  11-12  
+    byte     fw105       1:  13-13  
+    byte     fw106       1:  14-14  
+    byte     fw107       1:  15-16  
+    byte     fw108       1:  17-17  
+    byte     fw109       1:  18-18  
+    byte     fw110       1:  19-20  
+    byte     fw111       1:  21-22  
+    int      fw112       1:  23-25  
+    str      fw113a      1:  26-26  
+    str      fw113b      1:  27-27  
+    str      fw113c      1:  28-28  
+    str      fw113d      1:  29-29  
+    str      fw113e      1:  30-30  
+    str      fw113f      1:  31-31  
+    str      fw113g      1:  32-32  
+    str      fw113h      1:  33-33  
+    str      fw113i      1:  34-34  
+    str      fw113j      1:  35-35  
+    str      fw113k      1:  36-36  
+    str      fw113l      1:  37-37  
+    str      fw113m      1:  38-38  
+    str      fw113x      1:  39-39  
+    str      fw113y      1:  40-40  
+    byte     fw114       1:  41-42  
+    byte     fw115       1:  43-43  
+    byte     fw116       1:  44-44  
+    byte     fw117       1:  45-45  
+    byte     fw118       1:  46-46  
+}

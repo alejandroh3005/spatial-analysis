@@ -1,0 +1,154 @@
+                                                   BJFW71FL                                                   
+                                                BJFW71FL_DICT                                                 
+
+                                        BJFW71FL.DCF                                                          
+                                    Last Modified:  3/28/2019  4:36:16 PM                                     
+
+--------------------------------------------------------------------------------------------------------------
+Level Name                    Level Label                                                  Type            Rec
+  Record Name                   Record Label                                              Value  Req  Max  Len
+--------------------------------------------------------------------------------------------------------------
+LEVEL_1                       Level 1                                                                         
+  FWRECORD                      Fieldworker record                                               Yes    1   46
+Level: Level 1                                         Record: Fieldworker record
+--------------------------------------------------------------------------------------------------------------
+                                                                                 Data Item            Dec Zero
+Item Name              Item Label                                     Start  Len Type Type  Occ  Dec Char Fill
+--------------------------------------------------------------------------------------------------------------
+FW101             (id) Fieldworker code                                   1    4    N    I    1    0   No   No
+                         (record type)                                    0    0   AN    I    1    0   No   No
+FW000                  Country code and phase                             5    3   AN    I    1    0   No   No
+FW102                  Fieldworker region of residence                    8    2    N    I    1    0   No   No
+                               1   ALIBORI
+                               2   ATACORA
+                               3   ATLANTIQUE
+                               4   BORGOU
+                               5   COLLINES
+                               6   COUFFO
+                               7   DONGA
+                               8   LITTORAL
+                               9   MONO
+                               10  OUÉMÉ
+                               11  PLATEAU
+                               12  ZOU
+FW103                  Fieldworker type of place of residence            10    1    N    I    1    0   No   No
+                               1  City with special status ("Statut Particulier")
+                               2  Other City
+                               3  Secondary city ("Ville secondaire")
+                          (na)    Not applicable
+FW104                  Fieldworker age                                   11    2    N    I    1    0   No   No
+                               15:65  
+                          (na)        Not applicable
+FW105                  Fieldworker sex                                   13    1    N    I    1    0   No   No
+                               1  Male
+                               2  Female
+                          (na)    Not applicable
+FW106                  Fieldworker marital status                        14    1    N    I    1    0   No   No
+                               1  Currently married
+                               2  Living with a man/woman
+                               3  Widowed
+                               4  Divorced
+                               5  Separated
+                               6  Never married or lived with a man/woman
+                          (na)    Not applicable
+FW107                  Fieldworker number of living children             15    2    N    I    1    0   No   No
+                               0:24  
+                          (na)       Not applicable
+FW108                  Fieldworker ever had a child who died             17    1    N    I    1    0   No   No
+                               1  Yes
+                               2  No
+                          (na)    Not applicable
+FW109                  Highest level of school attended by fieldworker   18    1    N    I    1    0   No   No
+                               1  Primary
+                               2  Secondary 1
+                               3  Secondary 2
+                               4  Higher
+                          (na)    Not applicable
+FW110                  Highest grade/form/year at that level completed   19    2    N    I    1    0   No   No
+                               0     Less than one year at level
+                               1:15  
+                          (na)       Not applicable
+FW111                  Fieldworker religion                              21    2    N    I    1    0   No   No
+                               1   Vodoun
+                               2   Other traditional
+                               3   Islam
+                               4   Catholic
+                               5   Protestant Methodist
+                               6   Other Protestants
+                               7   Celestes
+                               8   Other Christians
+                               9   Other religions
+                               10  No religion
+                               96  Other
+                           (m) 99  Missing
+FW112                  Fieldworker ethnicity                             23    3    N    I    1    0   No   No
+                               1    Adja and related
+                               2    Bariba and related..
+                               3    Dendi and related..
+                               4    Fon and related..
+                               5    Yoa, Lokpa and related.
+                               6    Betamaribe and related
+                               7    Peulh and related
+                               8    Yoruba and related..
+                               96   Other Beninois
+                               97   Other nationalities
+                           (m) 999  Missing
+FW113A                 French                                            26    1   AN    I    1    0   No   No
+                               A  Français
+FW113B                 Adja                                              27    1   AN    I    1    0   No   No
+                               B  Adja
+FW113C                 Bariba                                            28    1   AN    I    1    0   No   No
+                               C  Bariba
+FW113D                 Fon                                               29    1   AN    I    1    0   No   No
+                               D  Fon
+FW113E                 Dendi                                             30    1   AN    I    1    0   No   No
+                               E  Dendi
+FW113F                 Ditamari                                          31    1   AN    I    1    0   No   No
+                               F  Ditamari
+FW113G                 Yoruba                                            32    1   AN    I    1    0   No   No
+                               G  Yoruba
+FW113H                 Not used                                          33    1   AN    I    1    0   No   No
+                               H  Language H
+FW113I                 Not used                                          34    1   AN    I    1    0   No   No
+                               I  Language I
+FW113J                 Other                                             35    1   AN    I    1    0   No   No
+                               J  Language J
+FW113K                 Not used                                          36    1   AN    I    1    0   No   No
+                               K  Language K
+FW113L                 Not used                                          37    1   AN    I    1    0   No   No
+                               L  Language L
+FW113M                 Not used                                          38    1   AN    I    1    0   No   No
+                               M  Language M
+FW113X                 Other language                                    39    1   AN    I    1    0   No   No
+                               X  Other language
+FW113Y                 No other language                                 40    1   AN    I    1    0   No   No
+                               Y  Pas d'autre langue
+FW114                  Fieldworker's mother tongue/native language       41    2    N    I    1    0   No   No
+                               1   French
+                               2   Adja
+                               3   Bariba
+                               4   Fon
+                               5   Dendi
+                               6   Ditamari
+                               7   Yoruba
+                               8   Other
+                          (na)     Not applicable
+FW115                  Has fieldworker ever worked on a DHS              43    1    N    I    1    0   No   No
+                               1  Yes
+                               2  No
+                          (na)    Not applicable
+FW116                  Has fieldworker ever worked on any other survey   44    1    N    I    1    0   No   No
+                               1  Yes
+                               2  No
+                          (na)    Not applicable
+FW117                  Was fieldworker working for agency at the time    45    1    N    I    1    0   No   No
+                               1  Yes, INSAE
+                               3  No
+                          (na)    Not applicable
+FW118                  Is fieldworker permanent or te temporary employ   46    1    N    I    1    0   No   No
+                               1  Permanent
+                               2  Temporary
+                          (na)    Not applicable
+--------------------------------------------------------------------------------------------------------------
+Relation Name         Primary               Linked by             Secondary             Linked by
+--------------------------------------------------------------------------------------------------------------
