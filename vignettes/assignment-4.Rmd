@@ -17,15 +17,19 @@ options(knitr.kable.NA = '-', digits = 2)
 options(survey.lonely.psu="adjust")
 labs = knitr::all_labels()
 labs = labs[!labs %in% c("setup", "allcode")]
+
 ```
 
 ```{r load}
 # Load relevant packages
-library(surveyPrev)
-library(haven) 
-library(geodata)
-library(sf)
 library(dplyr)
+library(haven)
+library(geodata)
+library(INLA)
+library(sf)
+library(sn)
+library(SUMMER)
+library(surveyPrev)
 
 # Load data locally
 indicator <- "unmet_family"
@@ -39,7 +43,8 @@ indicator <- "unmet_family"
 data <- surveyPrev::getDHSindicator(dhsData, indicator = indicator)
 head(data)  # View head
 
-# Handle missing data
+# Handle missing data (there is none)
+anyNA(data)
 
 ```
 
@@ -68,45 +73,86 @@ cluster.info <- clusterInfo(geo, poly.adm1, poly.adm2)
 
 
 ```{r}
-## Plot direct estimates of Admin 1 prevalence
+## Get direct estimates of Admin 1 prevalence
 res_ad1 <- surveyPrev::directEST(data, cluster.info, admin = 1)
-plot_ad1 <- res_ad1$res.admin1 %>%
-  select("Admin 1 Name"=admin1.name, "Direct Estimate"=direct.est, "Variance of Estimate"=direct.var) %>%
-  mutate("SE of Estimate" = sqrt(.$"Variance of Estimate"),
-         model = "Percentage of Women with Unmet Family Needs in Armenia")
-# Map direct estimates and uncertainty
-SUMMER::mapPlot(data = plot_ad1, geo = poly.adm1,
-              by.data = "Admin 1 Name", by.geo = "NAME_1", is.long = TRUE,
-              variable = "model", 
-              value = "Direct Estimate", 
-              legend.label = "Direct Estimate")
-SUMMER::mapPlot(data = plot_ad1, geo = poly.adm1,
-              by.data = "Admin 1 Name",  by.geo = "NAME_1", is.long = TRUE,
-              variable = "model", value = "SE of Estimate", 
-              legend.label = "SE of Estimate")
+benin_ad1 <- res_ad1$res.admin1 %>%
+  select("Admin 1 Name"=admin1.name, "Direct Estimate"=direct.est, 
+         "Variance of Estimate"=direct.var) %>%
+  mutate("SE of Estimate" = sqrt(.$"Variance of Estimate"))
 
-```
-
-
-```{r}
-## Plot direct estimates of Admin 2 prevalence
+## Get direct estimates of Admin 2 prevalence
 res_ad2 <- surveyPrev::directEST(data, cluster.info, admin = 2)
-plot_ad2 <- res_ad2$res.admin2 %>%
-  select("Admin 2 Name"=admin2.name, "Direct Estimate"=direct.est, "Variance of Estimate"=direct.var) %>%
-  mutate("SE of Estimate" = sqrt(.$"Variance of Estimate"),
-         model = "Percentage of Women with Unmet Family Needs in Armenia")
-# Map direct estimates and uncertainty
-SUMMER::mapPlot(data = plot_ad2, geo = poly.adm2,
-              by.data = "Admin 2 Name", by.geo = "NAME_2", is.long = TRUE,
-              variable = "model", 
-              value = "Direct Estimate", 
-              legend.label = "Direct Estimate")
-SUMMER::mapPlot(data = plot_ad2, geo = poly.adm2,
-              by.data = "Admin 2 Name",  by.geo = "NAME_2", is.long = TRUE,
-              variable = "model", value = "SE of Estimate", 
-              legend.label = "SE of Estimate")
+benin_ad2 <- res_ad2$res.admin2 %>%
+  select("Admin 2 Name"=admin2.name, "Direct Estimate"=direct.est, 
+         "Variance of Estimate"=direct.var) %>%
+  mutate("SE of Estimate" = sqrt(.$"Variance of Estimate"))
+
+# Take a peek at estimates table
+head(benin_ad1)
+head(benin_ad2)
+
+# Histogram of direct estimates
+hist(benin_ad1$`Direct Estimate`, main="Admin 1")
+hist(benin_ad2$`Direct Estimate`, main="Admin 2")
+
+# Histogram of direct estimate variances
+hist(benin_ad1$`Variance of Estimate`, main="Admin 1")
+hist(benin_ad2$`Variance of Estimate`, main="Admin 2")
+
+# Range of direct estimate variances
+summary(benin_ad1$`Variance of Estimate`)
+summary(benin_ad2$`Variance of Estimate`)
 
 ```
+
+
+## Question 1
+
+(a) Obtain Fay-Herriot estimates at Admin1. To describe the model, define the logit of the
+weighted estimate, $p_i^w$, to be $\hat{θ_i} = log [\hat{p_i^w}/(1-\hat{p_i^w})]$ and $\hat{V_i}$ to be the estimated design-based variance of $\hat{θ_i}$. Fit the Fay-Herriot model,
+
+$\hat{\theta_i}|\theta_i \sim N(\theta_i,\hat{V_i})$
+$\hat{\theta_i} = \alpha + b_i$
+$b_i \sim BYM2(\sigma_b^2,\phi)$
+
+Then, plot $\widetilde{p_i}$ against $\widehat{p_i}^w$. Plot the posterior standard deviation from the Fay-Herriot model versus the standard errors of $\widehat{p_i}^w$. Comment on these two scatterplots.
+
+```{r question-1a, fig.asp=1}
+# Fit Fay-Herriot model of Admin 1 prevalence
+benin_ad1_bym2 <- fhModel(data, cluster.info, admin.info=admin1.info, admin=1, 
+                          model="bym2", aggregation=FALSE)
+head(benin_ad1_bym2$res.admin1)
+
+# Add estimates to Admin 1 table
+benin_ad1 <- cbind(benin_ad1, 
+                   benin_ad1_bym2$res.admin1 %>%
+                     select("F-H Mean"=mean, "F-H Variance"=var, "F-H SD"=sd))
+
+# Map Admin 1 posterior means
+SUMMER::mapPlot(data=benin_ad1, geo=poly.adm1,
+                by.data="Admin 1 Name", by.geo="NAME_1", variables="F-H Mean",
+                size = 0.01, direction = -1)
+
+# Assess whether posterior variances may be too small
+summary(benin_ad1$`F-H Variance`)
+benin_ad1_bym2$res.admin1[c(1,6,2,7)]
+# The variances are not extremely small nor the CIs extremely narrow 
+
+# Plot of direct estimates against posterior means 
+plot(x=benin_ad1$'Direct Estimate', y=benin_ad1$'F-H Mean', 
+     ylab="Posterior Proportion", xlab="Direct Estimate",
+     ylim=c(0.2,.4), xlim=c(0.2,.4))
+abline(0,1,col="red")
+
+# Plot of direct estimate SE against posterior standard deviations
+plot(x=benin_ad1$'SE of Estimate', y=benin_ad1$'F-H SD',
+     xlab="Posterior Proportion", ylab="Direct Estimate")
+abline(0,1,col="red")
+
+```
+
+
+
 
 
 
